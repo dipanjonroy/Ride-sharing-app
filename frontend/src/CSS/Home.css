@@ -1,0 +1,10 @@
+.main {
+  background-image: url("https://plus.unsplash.com/premium_photo-1731842686156-74895c29a87b?q=80&w=1372&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.logo{
+  width: 20%;
+}

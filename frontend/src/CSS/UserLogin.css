@@ -1,0 +1,12 @@
+form input{
+  background-color: #eee;
+  border: 1px solid #ddd !important;
+}
+
+.logo{
+  width: 21%;
+}
+
+.captain-signin-btn {
+  background-color: #29b2ca;
+}
