@@ -4,21 +4,57 @@ import UserLogIn from "./pages/UserLogin";
 import UserSignUp from "./pages/UserSignUp";
 import CaptainLogin from "./pages/CaptainLogin";
 import CaptainSignUp from "./pages/CaptainSignUp";
-import Profile from "./pages/Profile";
-import UserProtectWrapper from "./components/UserProtectWrapper";
+import DashBoard from "./pages/DashBoard";
 import UserLogout from "./pages/UserLogout";
+import Error from "./pages/Error";
+import UserProtecttor from "./components/UserProtectWrapper";
+import CaptainDashboard from "./pages/CaptainDashboard";
+import CaptainProtect from "./components/CaptainProtectWrapper";
 
 export default function App() {
   return (
     <div>
       <Routes>
+        <Route path="*" element={<Error />} />
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<UserLogIn />} />
+        <Route
+          path="/login"
+          element={
+            <UserProtecttor>
+              <UserLogIn />
+            </UserProtecttor>
+          }
+        />
+
         <Route path="/signup" element={<UserSignUp />} />
-        <Route path="/captain-login" element={<CaptainLogin />} />
+
+        <Route
+          path="/captain-login"
+          element={
+            <CaptainProtect>
+              <CaptainLogin />
+            </CaptainProtect>
+          }
+        />
+
         <Route path="/captain-signup" element={<CaptainSignUp />} />
-        <Route path="/profile" element={<UserProtectWrapper><Profile /></UserProtectWrapper>} />
-        <Route path="/user/logout" element={<UserProtectWrapper><UserLogout/></UserProtectWrapper>} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <UserProtecttor>
+              <DashBoard />
+            </UserProtecttor>
+          }
+        />
+        <Route
+          path="/captain-dashboard"
+          element={
+            <CaptainProtect>
+              <CaptainDashboard />
+            </CaptainProtect>
+          }
+        />
       </Routes>
     </div>
   );

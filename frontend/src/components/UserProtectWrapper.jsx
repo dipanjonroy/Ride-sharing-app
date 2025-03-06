@@ -1,17 +1,26 @@
+import Cookies from "js-cookie";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { userProfile } from "../features/APICall/userSlice";
 
-const UserProtectWrapper = ({ children }) => {
-  const token = localStorage.getItem("token");
+function UserProtecttor({ children }) {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
+  const token = Cookies.get("token");
+
   useEffect(() => {
-    if (!token) {
+    if (token) {
+      dispatch(userProfile(token));
+      navigate("/dashboard");
+    } else {
       navigate("/login");
     }
-  }, [token]);
-  
-  return <>{children}</>;
-};
+  }, [token, dispatch, navigate]);
 
-export default UserProtectWrapper;
+  return <>{children}</>;
+}
+
+export default UserProtecttor;

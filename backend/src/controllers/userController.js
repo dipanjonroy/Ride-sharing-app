@@ -12,7 +12,10 @@ const Token = require("../models/tokenModel");
 
 module.exports.userRegister = async (req, res) => {
   await handleUserRegister(req.body);
-  res.send("Verification email is sent.");
+  res.status(209).json({
+    success: true,
+    message: "Register is successfully",
+  });
 };
 
 // module.exports.userVerify = async (req, res) => {
@@ -22,32 +25,31 @@ module.exports.userRegister = async (req, res) => {
 // };
 
 module.exports.login = async (req, res) => {
-  
   let { email, password } = req.body;
 
-  const user = await User.findOne({email}).select("+password");
-  if(!user){
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
     throw new ExpressError(401, "Invalid email or password.");
   }
 
   const isPassword = await user.comparePassword(password);
 
-  if(!isPassword){
+  if (!isPassword) {
     throw new ExpressError(401, "Invalid email or password.");
   }
 
-  const token = createToken({ email }, userAccessKey, "1h");
+  const userId = user._id;
+
+  const token = createToken({ userId }, userAccessKey, "1h");
 
   res.cookie("token", token, {
     maxAge: 1000 * 60 * 60,
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    httpOnly: false,
+    secure: false,
+    sameSite: "Lax",
   });
-  res.json({token, message: "Logged in successfully."});
+  res.json({ success: true, message: "Logged in successfully." });
 };
-
-
 
 module.exports.logout = async (req, res) => {
   res.clearCookie("token");
@@ -56,7 +58,6 @@ module.exports.logout = async (req, res) => {
   await Token.create({ token });
   res.json({ message: "Logged out successfully." });
 };
-
 
 module.exports.userProfile = async (req, res) => {
   let { token } = req.cookies;
@@ -70,7 +71,10 @@ module.exports.userProfile = async (req, res) => {
     throw new ExpressError(401, "Unauthorized");
   }
 
-  const user = await User.findOne({ email: decoded.email });
+  const user = await User.findById(decoded.userId);
 
-  res.json(user);
+  res.json({
+    success: true,
+    user,
+  });
 };

@@ -1,10 +1,38 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import "../CSS/CaptainLogin.css"
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import "../CSS/CaptainLogin.css";
+import { useDispatch, useSelector } from "react-redux";
+import { captainLogin } from "../features/APICall/captainSlice";
 
 export default function CaptainLogIn() {
+  const { response } = useSelector((store) => store.captain);
+  const { success } = response;
 
-return (
+  const disPatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleCaptainLogin = (e) => {
+    e.preventDefault();
+
+    const captainData = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    disPatch(captainLogin(captainData));
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/captain-dashboard");
+    }
+  }, [success, navigate]);
+
+  return (
     <div className="vh-100 p-4 d-flex flex-column justify-content-between">
       <div>
         <Link to="/">
@@ -14,7 +42,7 @@ return (
             alt="Uber Logo"
           />
         </Link>
-        <form>
+        <form onSubmit={handleCaptainLogin}>
           <div className="mb-4">
             <label htmlFor="email" className="fw-medium text-dark">
               Enter Email:
@@ -26,6 +54,7 @@ return (
               id="email"
               className="rounded w-100 px-3 py-2"
               name="email"
+              ref={emailRef}
               required
             />
           </div>
@@ -41,6 +70,7 @@ return (
               placeholder="your password"
               id="password"
               name="password"
+              ref={passwordRef}
               required
             />
           </div>

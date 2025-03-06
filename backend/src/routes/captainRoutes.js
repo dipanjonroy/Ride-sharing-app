@@ -11,8 +11,6 @@ router.post(
   validateCaptain,
   wrapAsync(captainController.register)
 );
-router.post("/verify", wrapAsync(captainController.verify));
-
 router.post("/login",isLoggedOutCaptain, validateAuth, wrapAsync(captainController.login));
 router.get("/logout", isLoggedInCaptain, wrapAsync(captainController.logout));
 

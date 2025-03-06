@@ -11,18 +11,6 @@ module.exports.handleUserRegister = async (data) => {
     throw new ExpressError(401, "User is already exist.");
   }
 
-  // const token = createToken(data, jwtUserRegisterKey, "10m");
-
-  // const emailData = {
-  //   email: data.email,
-  //   subject: "Uber account verification",
-  //   html: `<h2>Hello ${data.firstname}</h2>
-  //   <p>To activate the account, please click the link below.</p>
-  //   <a href="${clientUrl}/api/users/verify/${token}">Activate</a>
-  //   `,
-  // };
-
-  // await sendEmail(emailData);
   return await User.create(data);
 };
 

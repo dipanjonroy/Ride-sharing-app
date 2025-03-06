@@ -1,8 +1,46 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { captainRegister } from "../features/APICall/captainSlice";
 
 export default function CaptainSignUp() {
-  
+  const { response } = useSelector((store) => store.captain);
+
+  const { success } = response;
+
+  const disPatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const fnameRef = useRef();
+  const lnameRef = useRef();
+  const emailRef = useRef();
+  const vehicleTypeRef = useRef();
+  const vehicleNoRef = useRef();
+  const vehicleColorRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const captainInfo = {
+      firstname: fnameRef.current.value,
+      lastname: lnameRef.current.value,
+      email: emailRef.current.value,
+      color: vehicleColorRef.current.value,
+      type: vehicleTypeRef.current.value,
+      numberplate: vehicleNoRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    disPatch(captainRegister(captainInfo));
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/captain-login");
+    }
+  }, [success, navigate]);
 
   return (
     <div>
@@ -10,12 +48,12 @@ export default function CaptainSignUp() {
         <div>
           <Link to="/">
             <img
-              className="logo mb-5"
+              className="logo mb-4"
               src="https://www.smartsheet.com/sites/default/files/2022-02/Uber_logo_2018_4.svg"
               alt="Uber Logo"
             />
           </Link>
-          <form>
+          <form onSubmit={handleSubmit}>
             <h3 className="text-dark fs-6 fw-semibold">Your Fullname</h3>
             <div className="d-flex gap-3 mb-4">
               <div>
@@ -25,6 +63,7 @@ export default function CaptainSignUp() {
                   id="firstname"
                   className="rounded w-100 px-3 py-2"
                   name="firstname"
+                  ref={fnameRef}
                   required
                 />
               </div>
@@ -36,6 +75,7 @@ export default function CaptainSignUp() {
                   id="lastname"
                   className="rounded w-100 px-3 py-2"
                   name="lastname"
+                  ref={lnameRef}
                   required
                 />
               </div>
@@ -52,8 +92,74 @@ export default function CaptainSignUp() {
                 id="email"
                 className="rounded w-100 px-3 py-2"
                 name="email"
+                ref={emailRef}
                 required
               />
+            </div>
+
+            <div className="mb-4 ">
+              <h5 className="border-bottom mb-3">Vehicle Information</h5>
+              <div className="d-flex gap-3">
+                <div>
+                  <label
+                    htmlFor="vehicleType"
+                    className="fw-medium text-dark fs-6"
+                  >
+                    Type:
+                  </label>
+                  <br />
+                  <select
+                    name="vehicleType"
+                    id="vehicleType"
+                    className="p-2 rounded border-secondary-subtle"
+                    ref={vehicleTypeRef}
+                    defaultValue=""
+                    required
+                  >
+                    <option value="" disabled>
+                      Select
+                    </option>
+                    <option value="Car">Car</option>
+                    <option value="Bike">Bike</option>
+                    <option value="Scooty">Scooty</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="numberplate"
+                    className="fw-medium text-dark fs-6"
+                  >
+                    Car No:
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="car no"
+                    id="numberplate"
+                    className="rounded w-100 px-3 py-2"
+                    name="numberplate"
+                    ref={vehicleNoRef}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="color" className="fw-medium text-dark fs-6">
+                    Car Color::
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="color"
+                    id="color"
+                    className="rounded w-100 px-3 py-2"
+                    name="color"
+                    ref={vehicleColorRef}
+                    required
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="mb-4">
@@ -67,6 +173,7 @@ export default function CaptainSignUp() {
                 placeholder="your password"
                 id="password"
                 name="password"
+                ref={passwordRef}
                 required
               />
             </div>
@@ -77,7 +184,7 @@ export default function CaptainSignUp() {
           </form>
 
           <p className="text-center mt-2 fw-semibold">
-            Already are a captain?{" "}
+            Already are a captain?
             <Link to="/captain-login" className="text-decoration-none">
               Login here
             </Link>

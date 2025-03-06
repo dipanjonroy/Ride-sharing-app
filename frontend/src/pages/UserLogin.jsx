@@ -1,8 +1,38 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS/UserLogIn.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../features/APICall/userSlice";
 
 export default function UserLogIn() {
+  const { response } = useSelector((store) => store.user);
+ 
+  const { success } = response;
+
+  const disPatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const loginInfo = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    disPatch(userLogin(loginInfo));
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/dashboard");
+    }
+  }, [success, navigate]);
+
   return (
     <div className="vh-100 p-4 d-flex flex-column justify-content-between">
       <div>
@@ -13,7 +43,7 @@ export default function UserLogIn() {
             alt="Uber Logo"
           />
         </Link>
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label htmlFor="email" className="fw-medium text-dark">
               Enter Email:
@@ -25,6 +55,7 @@ export default function UserLogIn() {
               id="email"
               className="rounded w-100 px-3 py-2"
               name="email"
+              ref={emailRef}
               required
             />
           </div>
@@ -40,6 +71,7 @@ export default function UserLogIn() {
               placeholder="your password"
               id="password"
               name="password"
+              ref={passwordRef}
               required
             />
           </div>

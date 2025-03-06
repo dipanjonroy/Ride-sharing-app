@@ -6,16 +6,17 @@ const Token = require("../models/tokenModel");
 module.exports.isLoggedInUser = async (req, res, next) => {
   try {
     let { token } = req.cookies;
+
+    if (!token) {
+      throw new ExpressError(401, "Unauthorized access, please login.");
+    }
+    
+
     const blackListToken = await Token.exists({ token });
 
     if (blackListToken) {
       throw new ExpressError(401, "Unauthorized access, please login.");
     }
-
-    if (!token) {
-      throw new ExpressError(401, "Unauthorized access, please login.");
-    }
-
     next();
   } catch (err) {
     next(err);

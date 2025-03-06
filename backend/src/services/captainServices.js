@@ -21,7 +21,7 @@ module.exports.handleCaptainRegister = async (data) => {
     throw new ExpressError(400, "Captain already exists.");
   }
 
-  return (newCaptain = {
+  const captain = {
     fullname: {
       firstname,
       lastname,
@@ -37,12 +37,13 @@ module.exports.handleCaptainRegister = async (data) => {
       lat,
       long,
     },
-  });
+  };
+
+  const newCaptain = await Captain.create(captain);
+  return newCaptain
 };
 
-module.exports.createCaptain = async (data) => {
-  return await Captain.create(data);
-};
+
 
 module.exports.checkCaptain = async (data) => {
   let { email, password } = data;
@@ -61,13 +62,13 @@ module.exports.checkCaptain = async (data) => {
   return email;
 };
 
-module.exports.blacklistCaptain = async(token)=>{
-  return await Token.create({token});
-}
+module.exports.blacklistCaptain = async (token) => {
+  return await Token.create({ token });
+};
 
-module.exports.showProfile = async(email)=>{
-  if(!email){
-    throw new ExpressError(401,"Profile does not exist.");
+module.exports.showProfile = async (email) => {
+  if (!email) {
+    throw new ExpressError(401, "Profile does not exist.");
   }
-  return await Captain.findOne({email});
-}
+  return await Captain.findOne({ email });
+};

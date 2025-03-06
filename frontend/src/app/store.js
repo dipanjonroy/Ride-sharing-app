@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducers from "../features/user/userSlice";
-import userLoginReducer from "../features/user/userLoginSlice";
-import UserLogoutReducer from "../features/user/userLogOutSlice";
+import userReducer from "../features/APICall/userSlice";
+import captainReducer from "../features/APICall/captainSlice"
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    user: userReducers,
-    userLogin: userLoginReducer,
-    userLogout: UserLogoutReducer,
+    user: userReducer,
+    captain: captainReducer
   },
 });
+
+export default store;

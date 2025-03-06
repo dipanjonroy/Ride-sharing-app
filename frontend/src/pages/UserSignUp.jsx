@@ -1,6 +1,47 @@
+import { useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { userRegister } from "../features/APICall/userSlice";
+
 export default function UserSignUp() {
-  
+  const { response, error} = useSelector((store) => store.user);
+  const { success } = response;
+
+  const disPatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const fnameRef = useRef();
+  const lnameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const userInfo = {
+      firstname: fnameRef.current.value,
+      lastname: lnameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    disPatch(userRegister(userInfo));
+
+    if (error) {
+      fnameRef.current.value = "";
+      lnameRef.current.value = "";
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
+    }
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/login");
+    }
+  }, [success, navigate]);
+
   return (
     <div>
       <div className="vh-100 p-4 d-flex flex-column justify-content-between">
@@ -13,7 +54,7 @@ export default function UserSignUp() {
             />
           </Link>
 
-          <form lassName="needs-validation" noValidate>
+          <form className="needs-validation" onSubmit={handleSubmit} noValidate>
             <h3 className="text-dark fs-6 fw-semibold">Your Fullname</h3>
             <div className="d-flex gap-3 mb-4">
               <div>
@@ -23,6 +64,7 @@ export default function UserSignUp() {
                   id="firstname"
                   className="rounded w-100 px-3 py-2"
                   name="firstname"
+                  ref={fnameRef}
                   required
                 />
               </div>
@@ -34,6 +76,7 @@ export default function UserSignUp() {
                   id="lastname"
                   className="rounded w-100 px-3 py-2"
                   name="lastname"
+                  ref={lnameRef}
                   required
                 />
               </div>
@@ -50,6 +93,7 @@ export default function UserSignUp() {
                 id="email"
                 className="rounded w-100 px-3 py-2"
                 name="email"
+                ref={emailRef}
                 required
               />
             </div>
@@ -65,6 +109,7 @@ export default function UserSignUp() {
                 placeholder="your password"
                 id="password"
                 name="password"
+                ref={passwordRef}
                 required
               />
             </div>
