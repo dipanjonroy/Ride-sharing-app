@@ -1,0 +1,34 @@
+.location-panel {
+  margin-bottom: 1.3rem;
+}
+
+.location-icon {
+  background-color: rgb(224, 223, 223);
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  
+}
+.location {
+  overflow: hidden;
+}
+
+.location h4 {
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  color: #212529;
+  margin-bottom: 0.1rem;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.location p {
+  color: #212529;
+  font-size: 0.9rem;
+  width: 100%;
+  margin: 0;
+}

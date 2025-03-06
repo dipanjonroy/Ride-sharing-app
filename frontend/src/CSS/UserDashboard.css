@@ -1,0 +1,48 @@
+.user-dashboard {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.user-dashboard-logo {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
+.find-trip {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.location-search {
+  height: 30%;
+  padding: 1.5rem 2rem;
+  border-radius: 25px 25px 0 0;
+}
+
+.location-search svg {
+  color: #212529;
+  font-size: 2rem;
+}
+
+.location-search h4 {
+  font-size: 1.5rem;
+}
+
+.location-search form input {
+  background-color: rgb(224, 223, 223);
+  border: none;
+  width: 100%;
+  padding: 0.6rem 2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  color: #212529;
+}
+
+.search-result-panel {
+  background-color: #fff;
+}

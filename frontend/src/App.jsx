@@ -7,9 +7,9 @@ import CaptainSignUp from "./pages/CaptainSignUp";
 import DashBoard from "./pages/DashBoard";
 import UserLogout from "./pages/UserLogout";
 import Error from "./pages/Error";
-import UserProtecttor from "./components/UserProtectWrapper";
+import UserProtecttor from "./guards/UserProtectWrapper";
 import CaptainDashboard from "./pages/CaptainDashboard";
-import CaptainProtect from "./components/CaptainProtectWrapper";
+import CaptainProtect from "./guards/CaptainProtectWrapper";
 
 export default function App() {
   return (
