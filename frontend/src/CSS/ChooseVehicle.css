@@ -1,0 +1,56 @@
+.vehicle{
+  padding: 0.8rem 0.6rem;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 1rem;
+  background-color: rgb(255, 255, 255);
+  margin-top: 0.9rem;
+  gap: 0.6rem
+}
+
+.vehicle:active{
+  border: 2px solid #212529;
+}
+
+.vehicle-info {
+  line-height: 1.6;
+  width: 60%;
+}
+
+.vehicle-type h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.vehicle-type span svg {
+  font-size: 1rem;
+}
+
+.vehicle-type span{
+  font-size: 0.8rem;
+}
+
+.vehicle img{
+  width: 25%;
+}
+.vehicle  p{
+  margin: 0;
+}
+
+.away-time {
+  font-size: 0.9rem;
+}
+
+.away-time li::marker{
+  margin: 0 !important;
+}
+
+.vehicle-condition {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.price{
+  font-size: 1rem;
+  font-weight: bold;
+}

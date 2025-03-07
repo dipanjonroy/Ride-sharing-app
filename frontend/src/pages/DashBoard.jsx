@@ -4,12 +4,16 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SearchLocationPanel from "../components/SearchLocationPanel";
+import PersonIcon from "@mui/icons-material/Person";
+import ChooseVehicle from "../components/ChooseVehicle";
 
 const DashBoard = () => {
   const [showPanel, setShowPanel] = useState(false);
+  const [showVehiclePanel, setShowVehiclePanel] = useState(false);
 
   const pickUpRef = useRef();
   const destinationRef = useRef();
+  const vehiclePanelRef = useRef();
 
   const locationSearchBodyRef = useRef();
   const resultPanelRef = useRef();
@@ -29,17 +33,27 @@ const DashBoard = () => {
       });
 
       gsap.to(locationSearchBodyRef.current, {
-        borderRadius: 0
-      })
+        borderRadius: 0,
+      });
     } else {
       gsap.to(resultPanelRef.current, {
         height: "0%",
       });
       gsap.to(locationSearchBodyRef.current, {
-        borderRadius: "25px 25px 0 0;"
-      })
+        borderRadius: "25px 25px 0 0;",
+      });
     }
-  }, [showPanel]);
+
+    if (showVehiclePanel) {
+      gsap.to(vehiclePanelRef.current, {
+        transform: "translateY(0%)",
+      });
+    } else {
+      gsap.to(vehiclePanelRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [showPanel, showVehiclePanel]);
 
   return (
     <div className="user-dashboard">
@@ -82,7 +96,21 @@ const DashBoard = () => {
         </div>
 
         <div className="search-result-panel" ref={resultPanelRef}>
-          <SearchLocationPanel/>
+          <SearchLocationPanel vehiclePanel={() => setShowVehiclePanel(true)} />
+        </div>
+      </div>
+
+      <div className="vehicle-panel" ref={vehiclePanelRef}>
+        <center className="mt-2 mb-4">
+          <div
+            className="vehicle-panel-close"
+            onClick={() => setShowVehiclePanel(false)}
+          ></div>
+        </center>
+
+        <div className="choose-vehicle">
+          <h4>Choose a vehicle</h4>
+          <ChooseVehicle/>
         </div>
       </div>
     </div>

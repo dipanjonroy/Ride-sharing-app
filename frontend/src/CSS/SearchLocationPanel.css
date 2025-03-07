@@ -1,5 +1,18 @@
+.location-area {
+  height: 95%;
+}
+
 .location-panel {
-  margin-bottom: 1.3rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 1rem;
+  background-color: rgb(236, 236, 236);
+  margin-bottom: 0.6rem;
+}
+
+.location-panel:active{
+  border: 2px solid #212529;
 }
 
 .location-icon {
@@ -31,4 +44,5 @@
   font-size: 0.9rem;
   width: 100%;
   margin: 0;
+  text-transform: capitalize;
 }
