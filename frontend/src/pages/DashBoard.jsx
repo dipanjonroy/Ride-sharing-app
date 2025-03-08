@@ -6,21 +6,23 @@ import { useGSAP } from "@gsap/react";
 import SearchLocationPanel from "../components/SearchLocationPanel";
 import PersonIcon from "@mui/icons-material/Person";
 import ChooseVehicle from "../components/ChooseVehicle";
-import VehicleDescription from "../components/VehicleDescription";
+import ConfirmRide from "../components/ConfirmRide";
+import FindDriver from "../components/FindDriver";
 
 const DashBoard = () => {
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
-  const [showVehicelDesPanel, setShowVehicleDesPanel] = useState(false);
+  const [showConfirmRidePanel, setShowConfirmRidePanel] = useState(false);
+  const [showFindDriverPanel, setShowFindDriverPanel] = useState(false)
 
   const pickUpRef = useRef();
   const destinationRef = useRef();
   const vehiclePanelRef = useRef();
   const mapPanelRef = useRef();
-
   const locationSearchBodyRef = useRef();
   const resultPanelRef = useRef();
-  const vehicleDesRef = useRef();
+  const confirmRideRef = useRef();
+  const findDriverRef= useRef()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,14 +32,19 @@ const DashBoard = () => {
     setShowPanel(true);
   };
 
-  const onClickShowVehiclePanel = ()=>{
-    setShowVehiclePanel(true)
-    setShowPanel(false)
-  }
+  const onClickShowVehiclePanel = () => {
+    setShowVehiclePanel(true);
+    setShowPanel(false);
+  };
 
-  const handleVehicleDesPanel = ()=>{
-    setShowVehicleDesPanel(true);
-    setShowVehiclePanel(false)
+  const handleConfirmRidePanel = () => {
+    setShowConfirmRidePanel(true);
+    setShowVehiclePanel(false);
+  };
+
+  const handleFindDriverPanel = ()=>{
+    setShowFindDriverPanel(true);
+    setShowConfirmRidePanel(false)
   }
 
   useGSAP(() => {
@@ -68,16 +75,27 @@ const DashBoard = () => {
       });
     }
 
-    if (showVehicelDesPanel) {
-      gsap.to(vehicleDesRef.current, {
+    if (showConfirmRidePanel) {
+      gsap.to(confirmRideRef.current, {
         transform: "translateY(0%)",
       });
     } else {
-      gsap.to(vehicleDesRef.current, {
+      gsap.to(confirmRideRef.current, {
         transform: "translateY(100%)",
       });
     }
-  }, [showPanel, showVehiclePanel, showVehicelDesPanel]);
+
+    if (showFindDriverPanel) {
+      gsap.to(findDriverRef.current, {
+        transform: "translateY(0%)",
+      });
+    } else {
+      gsap.to(findDriverRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+
+  }, [showPanel, showVehiclePanel, showConfirmRidePanel, showFindDriverPanel]);
 
   return (
     <div className="user-dashboard overflow-hidden">
@@ -134,12 +152,24 @@ const DashBoard = () => {
 
         <div className="choose-vehicle">
           <h4>Choose a vehicle</h4>
-          <ChooseVehicle showDesPanle ={handleVehicleDesPanel}/>
+          <ChooseVehicle showDesPanle={handleConfirmRidePanel} />
         </div>
       </div>
 
-      <div ref={vehicleDesRef} className="vehicle-description position-absolute bottom-0">
-        <VehicleDescription closePanel = {()=>setShowVehicleDesPanel(false)}/>
+      <div
+       className="confirm-ride position-absolute bottom-0"
+       ref={confirmRideRef}
+        
+      >
+        <ConfirmRide closePanel={() => setShowConfirmRidePanel(false)} handlePanels={handleFindDriverPanel}/>
+      </div>
+
+      <div
+       className="find-driver position-absolute bottom-0"
+       ref={findDriverRef}
+        
+      >
+        <FindDriver closePanel={() => setShowFindDriverPanel(false)} />
       </div>
     </div>
   );

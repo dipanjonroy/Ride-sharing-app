@@ -46,16 +46,14 @@
   border-bottom: 1px solid #ddd;
 }
 
-.vehicle-description {
-  transform: translateY(100%);
-}
 
-.v-description-panel a{
+
+.v-description-panel button{
   text-decoration: none;
   background-color: #29b2ca;
   text-align: center;
   padding-block: 0.4rem;
   font-size: 1.2rem;
   color: #fff;
-
+border: none;
 }

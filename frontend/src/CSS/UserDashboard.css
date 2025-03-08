@@ -69,3 +69,8 @@
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+
+.confirm-ride,
+.find-driver {
+  transform: translateY(100%);
+}
