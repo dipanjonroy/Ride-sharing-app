@@ -17,9 +17,8 @@
   width: 60%;
 }
 
-.vehicle-type h3 {
+.vehicle-type h4 {
   font-size: 1.1rem;
-  font-weight: bold;
 }
 
 .vehicle-type span svg {
@@ -27,7 +26,7 @@
 }
 
 .vehicle-type span{
-  font-size: 0.8rem;
+  font-size: 0.98rem;
 }
 
 .vehicle img{

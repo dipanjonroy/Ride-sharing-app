@@ -21,7 +21,6 @@
 .location-search {
   height: 30%;
   padding: 1.5rem 2rem;
-  border-radius: 25px 25px 0 0;
 }
 
 .location-search svg {
@@ -45,6 +44,7 @@
 
 .search-result-panel {
   background-color: #fff;
+  height: 0%;
 }
 
 .vehicle-panel {
@@ -53,12 +53,12 @@
   position: absolute;
   bottom: 0;
   background-color: #fff;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 20px 20px 0 0;
   padding: 1rem;
   transform: translateY(100%);
 }
 
-.vehicle-panel-close {
+.panel-close {
   width: 20%;
   height: 3px;
   background-color: rgb(202, 201, 201);

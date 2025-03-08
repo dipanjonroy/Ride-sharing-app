@@ -30,7 +30,7 @@ function SearchLocationPanel({vehiclePanel}) {
 
     {
       place: "mini ciniese center",
-      address: "pti more, khulna",
+      address: "PTI more, khulna",
     },
 
     {
@@ -46,8 +46,8 @@ function SearchLocationPanel({vehiclePanel}) {
 
   return (
     <div className="px-4 overflow-auto location-area">
-      {addresses.map((address) => (
-        <div className="location-panel d-flex align-items-center gap-4" onClick={vehiclePanel}>
+      {addresses.map((address, idx) => (
+        <div key={idx} className="location-panel d-flex align-items-center gap-4" onClick={vehiclePanel}>
           <div className="location-icon">
             <LocationOnIcon />
           </div>

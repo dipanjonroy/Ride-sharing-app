@@ -1,0 +1,61 @@
+.v-description-panel{
+  border-radius: 25px 25px 0 0;
+}
+
+.v-description-panel img{
+  width: 35%;
+  text-align: center;
+  margin-block: 1rem;
+  display: inline-block
+}
+
+.v-description-panel h3{
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.v-locations {
+  width: 100%;
+  border-top: 1px solid #ddd;
+}
+
+.v-locations svg {
+  font-size: 1.4rem;
+}
+
+.v-locations h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.v-locations p {
+  margin: 0;
+  font-size: 1rem;
+  color: #a3a3a3;
+  text-transform: capitalize;
+}
+
+.d-location-text {
+  width: 100%;
+  padding-block: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.vehicle-description {
+  transform: translateY(100%);
+}
+
+.v-description-panel a{
+  text-decoration: none;
+  background-color: #29b2ca;
+  text-align: center;
+  padding-block: 0.4rem;
+  font-size: 1.2rem;
+  color: #fff;
+
+}
