@@ -8,12 +8,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import ChooseVehicle from "../components/ChooseVehicle";
 import ConfirmRide from "../components/ConfirmRide";
 import FindDriver from "../components/FindDriver";
+import Driverinfo from "../components/DriverInfo";
 
 const DashBoard = () => {
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
   const [showConfirmRidePanel, setShowConfirmRidePanel] = useState(false);
-  const [showFindDriverPanel, setShowFindDriverPanel] = useState(false)
+  const [showFindDriverPanel, setShowFindDriverPanel] = useState(false);
+  const [driverInfoPanel, setDriverInfoPanel] = useState(true)
 
   const pickUpRef = useRef();
   const destinationRef = useRef();
@@ -22,7 +24,8 @@ const DashBoard = () => {
   const locationSearchBodyRef = useRef();
   const resultPanelRef = useRef();
   const confirmRideRef = useRef();
-  const findDriverRef= useRef()
+  const findDriverRef= useRef();
+  const driverInfoRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,7 +98,17 @@ const DashBoard = () => {
       });
     }
 
-  }, [showPanel, showVehiclePanel, showConfirmRidePanel, showFindDriverPanel]);
+    if(driverInfoPanel){
+      gsap.to(driverInfoRef.current, {
+        transform: "translateY(0%)"
+      })
+    } else {
+      gsap.to(driverInfoRef.current, {
+        transform: "translateY(100%)"
+      })
+    }
+
+  }, [showPanel, showVehiclePanel, showConfirmRidePanel, showFindDriverPanel, driverInfoPanel]);
 
   return (
     <div className="user-dashboard overflow-hidden">
@@ -170,6 +183,13 @@ const DashBoard = () => {
         
       >
         <FindDriver closePanel={() => setShowFindDriverPanel(false)} />
+      </div>
+
+      <div
+       className="driver-info position-absolute bottom-0 w-100"
+       ref={driverInfoRef}
+      >
+        <Driverinfo closePanel = {()=>setDriverInfoPanel(false)}/>
       </div>
     </div>
   );

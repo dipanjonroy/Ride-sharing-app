@@ -1,0 +1,168 @@
+.driver-info-panel {
+  width: 100%;
+  border-radius: 25px 25px 0 0;
+}
+
+.driver-des{
+  border-top: 1px solid #ddd;
+}
+
+.driver-text h4{
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.away-time{
+  width: 2rem;
+  height: 2rem;
+  padding: 1.7rem;
+}
+
+.away-time p{
+  margin: 0;
+  line-height: 1.2;
+}
+
+.driver-images {
+  width: 35%;
+}
+
+.profile-image {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 100%;
+  overflow: hidden;
+  z-index: 200;
+}
+
+.driver-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+.car-image{
+  margin-left: -2rem;
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+.car-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.drive-details {
+  text-align: right;
+  width: 65%;
+}
+
+.drive-details h4 {
+  margin: 0;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+.drive-details h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.drive-details p{
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  color: rgb(150, 147, 147);
+}
+.drive-details span {
+  font-size: 1rem;
+}
+.drive-details svg {
+  font-size: 1.1rem;
+}
+
+.chat-area {
+  width: 100%;
+  margin-block: 2rem;
+}
+
+.chat-area form{
+  width: 100%;
+  position: relative;
+}
+
+.chat-area input {
+  width: 70%;
+  font-size: 1.2rem;
+  padding: 0.8rem 2rem;
+  border-radius: 1rem;
+  background-color: rgb(219, 219, 219);
+}
+
+.chat-area button{
+  position: absolute;
+  top: 50% ;
+  bottom: 50%;
+  transform: translateY(-50%);
+  right: 6.5rem;
+} 
+
+.driver-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.badge-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: rgb(219, 219, 219);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.badge-icon svg {
+  color: #29b2ca;;
+}
+
+.driver-badge h4 {
+  font-size: 1.1rem;
+}
+
+.driver-location {
+  border-top: 1px solid #ddd;
+}
+
+.driver-location svg {
+  font-size: 1.4rem;
+}
+
+.driver-location h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.driver-location p {
+  margin: 0;
+  font-size: 1rem;
+  color: #a3a3a3;
+  text-transform: capitalize;
+}
+
+.driver-location-text {
+  width: 100%;
+  padding-block: 1rem;
+  border-bottom: 1px solid #ddd;
+}
