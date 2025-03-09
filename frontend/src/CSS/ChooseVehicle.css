@@ -40,10 +40,6 @@
   font-size: 0.9rem;
 }
 
-.away-time li::marker{
-  margin: 0 !important;
-}
-
 .vehicle-condition {
   font-size: 0.9rem;
   color: grey;

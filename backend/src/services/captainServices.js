@@ -11,6 +11,7 @@ module.exports.handleCaptainRegister = async (data) => {
     color,
     numberplate,
     type,
+    capacity,
     lat,
     long,
   } = data;
@@ -32,6 +33,7 @@ module.exports.handleCaptainRegister = async (data) => {
       color,
       numberplate,
       type,
+      capacity,
     },
     location: {
       lat,
@@ -40,10 +42,8 @@ module.exports.handleCaptainRegister = async (data) => {
   };
 
   const newCaptain = await Captain.create(captain);
-  return newCaptain
+  return newCaptain;
 };
-
-
 
 module.exports.checkCaptain = async (data) => {
   let { email, password } = data;

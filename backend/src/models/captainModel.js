@@ -60,6 +60,9 @@ const captainSchema = new Schema({
       type: String,
       trim: true,
     },
+    capacity: {
+      type: Number,
+    },
   },
 
   location: {

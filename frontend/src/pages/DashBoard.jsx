@@ -9,13 +9,14 @@ import ChooseVehicle from "../components/ChooseVehicle";
 import ConfirmRide from "../components/ConfirmRide";
 import FindDriver from "../components/FindDriver";
 import Driverinfo from "../components/DriverInfo";
+import MakePayment from "./Riding";
 
 const DashBoard = () => {
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
   const [showConfirmRidePanel, setShowConfirmRidePanel] = useState(false);
   const [showFindDriverPanel, setShowFindDriverPanel] = useState(false);
-  const [driverInfoPanel, setDriverInfoPanel] = useState(true)
+  const [driverInfoPanel, setDriverInfoPanel] = useState(false)
 
   const pickUpRef = useRef();
   const destinationRef = useRef();

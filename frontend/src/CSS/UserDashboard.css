@@ -71,6 +71,7 @@
 }
 
 .confirm-ride,
-.find-driver {
+.find-driver,
+.driver-info {
   transform: translateY(100%);
 }

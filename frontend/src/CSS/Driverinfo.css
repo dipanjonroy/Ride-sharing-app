@@ -12,13 +12,13 @@
   margin: 0;
 }
 
-.away-time{
+.far-away-time{
   width: 2rem;
   height: 2rem;
   padding: 1.7rem;
 }
 
-.away-time p{
+.far-away-time p{
   margin: 0;
   line-height: 1.2;
 }
@@ -163,6 +163,6 @@
 
 .driver-location-text {
   width: 100%;
-  padding-block: 1rem;
+  padding-block: 1.3rem;
   border-bottom: 1px solid #ddd;
 }

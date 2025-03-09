@@ -1,10 +1,10 @@
 import PinDropIcon from "@mui/icons-material/PinDrop";
-import MyLocationIcon from '@mui/icons-material/MyLocation';
-import PaymentIcon from '@mui/icons-material/Payment';
+import MyLocationIcon from "@mui/icons-material/MyLocation";
+import PaymentIcon from "@mui/icons-material/Payment";
 import "../CSS/ConfirmRide.css";
 import { Link } from "react-router-dom";
 
-function ConfirmRide({closePanel, handlePanels}) {
+function ConfirmRide({ closePanel, handlePanels }) {
   return (
     <div className="v-description-panel bg-light p-4 text-dark d-flex flex-column justify-content-center align-items-center">
       <div className="panel-close" onClick={closePanel}></div>
@@ -38,9 +38,11 @@ function ConfirmRide({closePanel, handlePanels}) {
             <p>cash cash</p>
           </div>
         </div>
-      </div>
 
-      <button onClick={handlePanels} className="w-100 rounded mt-4">Confirm</button>
+        <button onClick={handlePanels} className="w-100 rounded mt-4">
+          Confirm
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,39 @@
+.home-icon {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: white;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.riding-map {
+  height: 48%;
+}
+
+.riding-details {
+  height: calc(100% - 48%);
+}
+.payment-car {
+  width: 30%;
+}
+
+.payment-car img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.payment-btn {
+  text-decoration: none;
+  background-color: #29b2ca;
+  text-align: center;
+  padding-block: 0.4rem;
+  font-size: 1.2rem;
+  color: #fff;
+  border: none;
+}

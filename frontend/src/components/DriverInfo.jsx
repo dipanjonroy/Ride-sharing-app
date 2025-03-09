@@ -3,11 +3,11 @@ import SendIcon from "@mui/icons-material/Send";
 import IconButton from "@mui/material/IconButton";
 import "../CSS/Driverinfo.css";
 import ShieldIcon from "@mui/icons-material/Shield";
-import EmergencyShareIcon from '@mui/icons-material/EmergencyShare';
-import CallIcon from '@mui/icons-material/Call';
+import EmergencyShareIcon from "@mui/icons-material/EmergencyShare";
+import CallIcon from "@mui/icons-material/Call";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 
-function Driverinfo({closePanel}) {
+function Driverinfo({ closePanel }) {
   return (
     <div className="py-3 w-100 bg-body driver-info-panel">
       <center>
@@ -17,7 +17,7 @@ function Driverinfo({closePanel}) {
       <div className="px-3 driver-text d-flex justify-content-between align-items-center text-dark mt-3">
         <h4>Meet at the pick point</h4>
 
-        <div className="text-center bg-dark text-light away-time d-flex justify-content-center align-items-center">
+        <div className="text-center bg-dark text-light far-away-time d-flex justify-content-center align-items-center">
           <p>2 min</p>
         </div>
       </div>
@@ -81,12 +81,13 @@ function Driverinfo({closePanel}) {
       </div>
 
       <div className="px-3 driver-location d-flex align-items-center gap-4">
-          <PinDropIcon />
-          <div className="driver-location-text">
-            <h4>562/11-A</h4>
-            <p>modern furniture more, khulna</p>
-          </div>
+        <PinDropIcon />
+        <div className="driver-location-text">
+          <h4>562/11-A</h4>
+          <p>modern furniture more, khulna</p>
         </div>
+      </div>
+      
     </div>
   );
 }

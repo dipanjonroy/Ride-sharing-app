@@ -10,6 +10,7 @@ import Error from "./pages/Error";
 import UserProtecttor from "./guards/UserProtectWrapper";
 import CaptainDashboard from "./pages/CaptainDashboard";
 import CaptainProtect from "./guards/CaptainProtectWrapper";
+import Riding from "./pages/Riding";
 
 export default function App() {
   return (
@@ -53,6 +54,15 @@ export default function App() {
             <CaptainProtect>
               <CaptainDashboard />
             </CaptainProtect>
+          }
+        />
+
+        <Route
+          path="/riding"
+          element={
+            <UserProtecttor>
+              <Riding />
+            </UserProtecttor>
           }
         />
       </Routes>

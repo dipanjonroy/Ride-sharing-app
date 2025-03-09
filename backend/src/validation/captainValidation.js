@@ -39,6 +39,7 @@ module.exports.captainRegisterSchema = Joi.object({
   color: Joi.string().trim(),
   numberplate: Joi.string().trim(),
   type: Joi.string().trim(),
+  capacity: Joi.number(),
 
   lat: Joi.number(),
   long: Joi.number(),

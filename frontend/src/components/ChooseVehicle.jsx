@@ -49,7 +49,7 @@ function ChooseVehicle({ showDesPanle }) {
           <p className="away-time d-flex gap-2">
             15 mins away
             <span>
-              <li>55.35</li>
+              55.35
             </span>
           </p>
           <p className="vehicle-condition">Affordable, compact rides</p>

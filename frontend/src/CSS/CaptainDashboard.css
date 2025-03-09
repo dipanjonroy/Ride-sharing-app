@@ -1,0 +1,133 @@
+.captain-summery {
+  border-radius: 25px 15px 0 0;
+}
+
+.captain-nav {
+  position: fixed;
+}
+
+.captain-nav button {
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+}
+
+.captain-nav button svg {
+  font-size: 1.5rem;
+}
+
+.close-panel {
+  width: 20%;
+  height: 3px;
+  background-color: rgb(202, 201, 201);
+  border-radius: 1rem;
+}
+
+.captain-profile img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.captain-name h3,
+.captain-earning h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.captain-name p,
+.captain-earning p {
+  font-size: 0.9rem;
+  color: rgb(146, 146, 146);
+  margin: 0;
+}
+
+.captain-ride-info {
+  background-color: rgb(204, 204, 204);
+}
+
+.ride-info svg {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ride-info h3 {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.ride-info p {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.pop-up-container {
+  border-radius: 25px 25px 0 0;
+}
+
+.passenger-area h3 {
+  font-size: 1.2rem;
+}
+
+.passenger-location h4 {
+  margin: 0;
+  font-size: 1.0rem;
+  text-transform: capitalize;
+}
+
+.passenger-location p {
+  margin: 0;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  color: rgb(146, 146, 146);
+}
+
+.pop-up-button {
+  border: none;
+  color: rgb(146, 146, 146);
+  background: none;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+}
+
+.accept-btn {
+  background-color: #29b2ca;
+  color: #fff;
+}
+
+.notification,
+.passenger-info,
+.otp-panel{
+  transform: translateY(100%);
+}
+
+.description h5,
+.payment-details h5{
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: rgb(146, 146, 146);
+  
+}
+
+.description p {
+  font-size: 0.9rem;
+}
+
+.payment-info h4{
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.otp-area h3 {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.otp-area form input {
+  width: 100%;
+  border-radius: 1rem;
+  height: 4rem;
+  padding-inline: 5rem;
+  font-size: 1.2rem;
+}

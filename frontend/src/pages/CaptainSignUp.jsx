@@ -19,6 +19,7 @@ export default function CaptainSignUp() {
   const vehicleNoRef = useRef();
   const vehicleColorRef = useRef();
   const passwordRef = useRef();
+  const vehicleCapacityRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ export default function CaptainSignUp() {
       email: emailRef.current.value,
       color: vehicleColorRef.current.value,
       type: vehicleTypeRef.current.value,
+      capacity: vehicleCapacityRef.current.value,
       numberplate: vehicleNoRef.current.value,
       password: passwordRef.current.value,
     };
@@ -100,7 +102,7 @@ export default function CaptainSignUp() {
             <div className="mb-4 ">
               <h5 className="border-bottom mb-3">Vehicle Information</h5>
               <div className="d-flex gap-3">
-                <div>
+                <div className="w-50">
                   <label
                     htmlFor="vehicleType"
                     className="fw-medium text-dark fs-6"
@@ -111,7 +113,7 @@ export default function CaptainSignUp() {
                   <select
                     name="vehicleType"
                     id="vehicleType"
-                    className="p-2 rounded border-secondary-subtle"
+                    className="p-2 rounded border-secondary-subtle w-100"
                     ref={vehicleTypeRef}
                     defaultValue=""
                     required
@@ -125,7 +127,7 @@ export default function CaptainSignUp() {
                   </select>
                 </div>
 
-                <div>
+                <div className="w-50">
                   <label
                     htmlFor="numberplate"
                     className="fw-medium text-dark fs-6"
@@ -140,6 +142,29 @@ export default function CaptainSignUp() {
                     className="rounded w-100 px-3 py-2"
                     name="numberplate"
                     ref={vehicleNoRef}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-4 ">
+              <div className="d-flex gap-3">
+                <div>
+                  <label
+                    htmlFor="capacity"
+                    className="fw-medium text-dark fs-6"
+                  >
+                    Car capacity:
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="car no"
+                    id="capacity"
+                    className="rounded w-100 px-3 py-2"
+                    name="capacity"
+                    ref={vehicleCapacityRef}
                     required
                   />
                 </div>
