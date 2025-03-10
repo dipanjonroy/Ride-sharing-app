@@ -7,6 +7,8 @@ const connectToDb = require("./db/dbConfig");
 
 const userRoutes = require("./routes/userRoutes");
 const captainRoutes = require("./routes/captainRoutes");
+const mapRoutes = require("../src/routes/mapRoute");
+const rideRoutes = require("../src/routes/rideRoute");
 
 const ExpressError = require("./utility/expresserror");
 
@@ -27,6 +29,8 @@ app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/captains", captainRoutes);
+app.use("/api/map", mapRoutes);
+app.use("/api/ride", rideRoutes);
 
 //ERROR Handleing
 app.use("*", (req, res, next) => {

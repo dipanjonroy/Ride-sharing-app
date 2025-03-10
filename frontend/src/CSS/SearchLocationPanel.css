@@ -34,9 +34,7 @@
   color: #212529;
   margin-bottom: 0.1rem;
   width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  text-align: left;
 }
 
 .location p {

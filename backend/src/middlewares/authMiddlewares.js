@@ -10,13 +10,17 @@ module.exports.isLoggedInUser = async (req, res, next) => {
     if (!token) {
       throw new ExpressError(401, "Unauthorized access, please login.");
     }
-    
 
     const blackListToken = await Token.exists({ token });
 
     if (blackListToken) {
       throw new ExpressError(401, "Unauthorized access, please login.");
     }
+
+    const decode = jwt.verify(token, process.env.JWT_USER_ACCESS_KEY);
+
+    req.user = decode.userId;
+
     next();
   } catch (err) {
     next(err);

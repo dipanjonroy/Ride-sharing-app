@@ -7,15 +7,18 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import PassengerDetails from "../components/PassengerDetails";
 import SubmitOtp from "../components/SubmitOtp";
+import FinsihRide from "../components/FinshRide";
 
 function CaptainDashboard() {
   const [popUp, setPopUp] = useState(true);
   const [passengerInfo, setPassengerInfo] = useState(false);
   const [otpPanel, setOtpPanel] = useState(false);
+  const [finishRidePanel, setFinishRidePanel] = useState(true)
 
   const notificationRef = useRef();
   const passengerInfoRef = useRef();
   const otpPageRef = useState();
+  const finishRideRef = useRef();
 
   const handlePassengerPanel = () => {
     setPassengerInfo(true);
@@ -57,7 +60,17 @@ function CaptainDashboard() {
         transform: "translateY(100%)",
       });
     }
-  }, [popUp, passengerInfo, otpPanel]);
+
+    if (finishRidePanel) {
+      gsap.to(finishRideRef.current, {
+        transform: "translateY(0%)",
+      });
+    } else {
+      gsap.to(finishRideRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [popUp, passengerInfo,otpPanel, finishRidePanel]);
 
   return (
     <div className="vw-100 vh-100 position-relative overflow-hidden">
@@ -109,6 +122,13 @@ function CaptainDashboard() {
         ref={otpPageRef}
       >
         <SubmitOtp closePanel={() => setOtpPanel(false)} />
+      </div>
+
+      <div
+        className="finish-ride position-absolute bottom-0 w-100"
+        ref={finishRideRef}
+      >
+        <FinsihRide closePanel={()=>setFinishRidePanel(false)}/>
       </div>
     </div>
   );

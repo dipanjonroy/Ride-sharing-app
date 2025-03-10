@@ -61,7 +61,6 @@ function SubmitOtp({ closePanel }) {
             <button
               className="accept-btn pop-up-button rounded ms-3"
               type="submit"
-              onClick={() => setOtp(true)}
             >
               Submit
             </button>

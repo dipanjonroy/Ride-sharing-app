@@ -10,31 +10,43 @@ import ConfirmRide from "../components/ConfirmRide";
 import FindDriver from "../components/FindDriver";
 import Driverinfo from "../components/DriverInfo";
 import MakePayment from "./Riding";
+import { useDispatch, useSelector } from "react-redux";
+import { getSuggestions } from "../features/APICall/mapSlice";
 
 const DashBoard = () => {
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
   const [showConfirmRidePanel, setShowConfirmRidePanel] = useState(false);
   const [showFindDriverPanel, setShowFindDriverPanel] = useState(false);
-  const [driverInfoPanel, setDriverInfoPanel] = useState(false)
+  const [driverInfoPanel, setDriverInfoPanel] = useState(false);
+  const [pickUpSuggestions, setPickUpSuggestions] = useState([]);
+  const [pickUp, setPickUp] = useState("");
+  const [destination, setDestination] = useState("");
+  const [activeField, setActiveField] = useState("");
 
-  const pickUpRef = useRef();
-  const destinationRef = useRef();
   const vehiclePanelRef = useRef();
   const mapPanelRef = useRef();
   const locationSearchBodyRef = useRef();
   const resultPanelRef = useRef();
   const confirmRideRef = useRef();
-  const findDriverRef= useRef();
+  const findDriverRef = useRef();
   const driverInfoRef = useRef();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const dispatch = useDispatch();
+
+  const handlePickupSuggestion = (e) => {
+    setPickUp(e.target.value)
+    dispatch(getSuggestions(e.target.value));
   };
 
-  const topSearchPanel = () => {
-    setShowPanel(true);
+  const handleDestinationSuggestion = (e) => {
+    setDestination(e.target.value)
+    dispatch(getSuggestions(e.target.value));
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  // };
 
   const onClickShowVehiclePanel = () => {
     setShowVehiclePanel(true);
@@ -46,10 +58,10 @@ const DashBoard = () => {
     setShowVehiclePanel(false);
   };
 
-  const handleFindDriverPanel = ()=>{
+  const handleFindDriverPanel = () => {
     setShowFindDriverPanel(true);
-    setShowConfirmRidePanel(false)
-  }
+    setShowConfirmRidePanel(false);
+  };
 
   useGSAP(() => {
     if (showPanel) {
@@ -99,17 +111,22 @@ const DashBoard = () => {
       });
     }
 
-    if(driverInfoPanel){
+    if (driverInfoPanel) {
       gsap.to(driverInfoRef.current, {
-        transform: "translateY(0%)"
-      })
+        transform: "translateY(0%)",
+      });
     } else {
       gsap.to(driverInfoRef.current, {
-        transform: "translateY(100%)"
-      })
+        transform: "translateY(100%)",
+      });
     }
-
-  }, [showPanel, showVehiclePanel, showConfirmRidePanel, showFindDriverPanel, driverInfoPanel]);
+  }, [
+    showPanel,
+    showVehiclePanel,
+    showConfirmRidePanel,
+    showFindDriverPanel,
+    driverInfoPanel,
+  ]);
 
   return (
     <div className="user-dashboard overflow-hidden">
@@ -133,26 +150,41 @@ const DashBoard = () => {
           ) : (
             <h4 className="text-dark">Find a trip</h4>
           )}
-          <form className="mt-2" onSubmit={handleSubmit}>
+          <form className="mt-2" onSubmit={(e)=>{e.preventDefault()}}>
             <input
               type="text"
               placeholder="Add a pick-up location"
               className="mb-3"
-              ref={pickUpRef}
-              onClick={topSearchPanel}
+              value={pickUp}
+              onChange={handlePickupSuggestion}
+              onClick={() => {
+                setShowPanel(true);
+                setActiveField("pickup");
+              }}
             />
 
             <input
               type="text"
               placeholder="Enter your destination"
-              ref={destinationRef}
-              onClick={topSearchPanel}
+              onChange={handleDestinationSuggestion}
+              value={destination}
+              onClick={() => {
+                setShowPanel(true);
+                setActiveField("destination");
+              }}
             />
           </form>
+
+          
         </div>
 
         <div className="search-result-panel" ref={resultPanelRef}>
-          <SearchLocationPanel vehiclePanel={onClickShowVehiclePanel} />
+          <SearchLocationPanel
+            vehiclePanel={onClickShowVehiclePanel}
+            setPickUp={setPickUp}
+            setDestination = {setDestination}
+            activeField = {activeField}
+          />
         </div>
       </div>
 
@@ -171,26 +203,27 @@ const DashBoard = () => {
       </div>
 
       <div
-       className="confirm-ride position-absolute bottom-0"
-       ref={confirmRideRef}
-        
+        className="confirm-ride position-absolute bottom-0"
+        ref={confirmRideRef}
       >
-        <ConfirmRide closePanel={() => setShowConfirmRidePanel(false)} handlePanels={handleFindDriverPanel}/>
+        <ConfirmRide
+          closePanel={() => setShowConfirmRidePanel(false)}
+          handlePanels={handleFindDriverPanel}
+        />
       </div>
 
       <div
-       className="find-driver position-absolute bottom-0"
-       ref={findDriverRef}
-        
+        className="find-driver position-absolute bottom-0"
+        ref={findDriverRef}
       >
         <FindDriver closePanel={() => setShowFindDriverPanel(false)} />
       </div>
 
       <div
-       className="driver-info position-absolute bottom-0 w-100"
-       ref={driverInfoRef}
+        className="driver-info position-absolute bottom-0 w-100"
+        ref={driverInfoRef}
       >
-        <Driverinfo closePanel = {()=>setDriverInfoPanel(false)}/>
+        <Driverinfo closePanel={() => setDriverInfoPanel(false)} />
       </div>
     </div>
   );
