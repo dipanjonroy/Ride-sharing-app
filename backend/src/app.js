@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectToDb = require("./db/dbConfig");
@@ -11,10 +10,9 @@ const mapRoutes = require("../src/routes/mapRoute");
 const rideRoutes = require("../src/routes/rideRoute");
 
 const ExpressError = require("./utility/expresserror");
+const app = express();
 
 connectToDb();
-
-const port = process.env.PORT || 4001;
 
 app.use(
   cors({
@@ -43,8 +41,5 @@ app.use((err, req, res, next) => {
   res.status(status).json({ success: false, message: message });
 });
 
-app.listen(port, () => {
-  console.log("Server is running.");
-});
 
 module.exports = app;

@@ -1,71 +1,38 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../CSS/SearchLocationPanel.css";
 import { useDispatch, useSelector } from "react-redux";
-
-function SearchLocationPanel({
-  vehiclePanel,
-  setPickUp,
+import {
   setDestination,
-  activeField,
-}) {
-  // const addresses = [
-  //   {
-  //     place: "Bhangonpar bazar",
-  //     address: "Gouramva Road, Shuvadia, Fakirhat, Bagerhat",
-  //   },
+  setPickUp,
+} from "../features/State management/stateSlice";
+import { getFare } from "../features/APICall/mapSlice";
 
-  //   {
-  //     place: "Khatakhali more",
-  //     address: "Dhaka khulna Road, Fakirhat, Bagerhat",
-  //   },
-
-  //   {
-  //     place: "Bilasita center",
-  //     address: "culkathi bazar, Bagerhat sadar, Bagerhat",
-  //   },
-
-  //   {
-  //     place: "bank asia",
-  //     address: "shiv bari more, Khulna",
-  //   },
-
-  //   {
-  //     place: "Govt M m city college",
-  //     address: "modern furniture more, khulna",
-  //   },
-
-  //   {
-  //     place: "mini ciniese center",
-  //     address: "PTI more, khulna",
-  //   },
-
-  //   {
-  //     place: "m & m restaurent & bar",
-  //     address: "babu khan road, khulna",
-  //   },
-
-  //   {
-  //     place: "niloy motor",
-  //     address: "abu sen goli, pablur more, khulna",
-  //   },
-  // ];
-
+function SearchLocationPanel({ vehiclePanel }) {
   const { suggestion, fare } = useSelector((store) => store.map);
-
+  const { activeField, destination, pickup } = useSelector(
+    (store) => store.state
+  );
   const data = suggestion.mapData.data;
 
+  const dispatch = useDispatch();
 
   const handleFieldValue = (suggestion) => {
     if (activeField === "pickup") {
-      setPickUp(suggestion);
+      dispatch(setPickUp(suggestion));
     } else if (activeField === "destination") {
-      setDestination(suggestion);
+      dispatch(setDestination(suggestion));
     }
   };
 
   return (
     <div className="px-4 location-area text-center">
-      <button className="btn btn-dark mb-4 w-50 rounded" onClick={vehiclePanel}>
+      <button
+        className="btn btn-dark mb-4 w-50 rounded"
+        onClick={() => {
+          vehiclePanel();
+          dispatch(getFare({ destination, pickup }));
+        }}
+      >
         Find trip
       </button>
       <div className="overflow-auto h-100">

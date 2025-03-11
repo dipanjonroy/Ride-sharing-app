@@ -58,6 +58,10 @@ module.exports.isLoggedInCaptain = async (req, res, next) => {
       throw new ExpressError(401, "Unauthorized access, please login.");
     }
 
+    const decoded = jwt.verify(captainToken, process.env.JWT_CAPTAIN_ACCESS_KEY);
+
+    req.captain = decoded.captain;
+
     next();
   } catch (err) {
     next(err);

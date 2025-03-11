@@ -1,9 +1,9 @@
-const http = require("http");
+const { createServer } = require("node:http");
 const app = require("./app");
-const {port} = require("./secret");
+const port = process.env.PORT || 5000;
 
-const server = http.createServer(app);
+const server = createServer(app);
 
-server.listen(port,()=>{
-  console.log(`Server is running from port ${port}`)
-})
+server.listen(port, () => {
+  console.log(`Server is running from port no ${port}`);
+});

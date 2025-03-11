@@ -50,15 +50,12 @@ export const getFare = createAsyncThunk(
   "GetFare",
   async (args, { rejectWithValue }) => {
     try {
-      const { destination, pickUp } = args;
-
-      console.log("Pickup: ", pickUp);
-      console.log("Destination: ", destination);
+      const { destination, pickup } = args;
 
       const { data } = await axios.get(
         `${import.meta.env.VITE_SERVER_URL_RIDE}/getfare`,
         {
-          params: { destination, pickup: pickUp },
+          params: { destination, pickup },
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,13 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+const token = Cookies.get("captainToken");
 
 const initialState = {
-  loading: null,
-  response: {
-    success: null,
-    message: null,
+  login: {
+    loading: null,
+    response: {
+      success: null,
+      message: null,
+    },
+    error: null,
   },
-  error: null,
+
+  register: {
+    loading: null,
+    response: {
+      success: null,
+      message: null,
+    },
+    error: null,
+  },
+
+  profile: {
+    loading: null,
+    response: {},
+    error: null,
+  },
 };
 
 export const captainRegister = createAsyncThunk(
@@ -44,15 +64,12 @@ export const captainLogin = createAsyncThunk(
 
 export const captainProfile = createAsyncThunk(
   "captain-profile",
-  async (token, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_SERVER_URL_CAPTAIN}/profile`,
         {
           withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 
@@ -72,47 +89,47 @@ export const captainSlice = createSlice({
 
       //captain register
       .addCase(captainRegister.pending, (state) => {
-        state.loading = true;
+        state.register.loading = true;
       })
 
       .addCase(captainRegister.fulfilled, (state, action) => {
-        state.loading = false;
-        state.response = action.payload;
+        state.register.loading = false;
+        state.register.response = action.payload;
       })
 
       .addCase(captainRegister.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.register.loading = false;
+        state.register.error = action.payload;
       })
 
       //Captain login
       .addCase(captainLogin.pending, (state) => {
-        state.loading = true;
+        state.login.loading = true;
       })
 
       .addCase(captainLogin.fulfilled, (state, action) => {
-        state.loading = false;
-        state.response = action.payload;
+        state.login.loading = false;
+        state.login.response = action.payload;
       })
 
       .addCase(captainLogin.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.login.loading = false;
+        state.login.error = action.payload;
       })
 
       //captain profile
       .addCase(captainProfile.pending, (state) => {
-        state.loading = true;
+        state.profile.loading = true;
       })
 
       .addCase(captainProfile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.response = action.payload;
+        state.profile.loading = false;
+        state.profile.response = action.payload;
       })
 
       .addCase(captainProfile.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.profile.loading = false;
+        state.profile.error = action.payload;
       });
   },
 });

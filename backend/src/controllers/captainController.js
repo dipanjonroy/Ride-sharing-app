@@ -50,13 +50,11 @@ module.exports.logout = async (req, res) => {
 };
 
 module.exports.profile = async (req, res) => {
-  const { captainToken } = req.cookies;
-  if (!captainToken) {
+  const captainId = req.captain;
+  if (!captainId) {
     throw new ExpressError(401, "Unauthorized. Please login.");
   }
-  const decoded = jwt.verify(captainToken, captainAccessKey);
-
-  const profile = await showProfile(decoded.captain);
+  const profile = await showProfile(captainId);
 
   res.json({ profile });
 };

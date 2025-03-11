@@ -8,16 +8,17 @@ import gsap from "gsap";
 import PassengerDetails from "../components/PassengerDetails";
 import SubmitOtp from "../components/SubmitOtp";
 import FinsihRide from "../components/FinshRide";
+import { useSelector } from "react-redux";
 
 function CaptainDashboard() {
-  const [popUp, setPopUp] = useState(true);
+   const [popUp, setPopUp] = useState(false);
   const [passengerInfo, setPassengerInfo] = useState(false);
   const [otpPanel, setOtpPanel] = useState(false);
-  const [finishRidePanel, setFinishRidePanel] = useState(true)
+  const [finishRidePanel, setFinishRidePanel] = useState(false);
 
   const notificationRef = useRef();
   const passengerInfoRef = useRef();
-  const otpPageRef = useState();
+  const otpPageRef = useRef();
   const finishRideRef = useRef();
 
   const handlePassengerPanel = () => {
@@ -70,7 +71,7 @@ function CaptainDashboard() {
         transform: "translateY(100%)",
       });
     }
-  }, [popUp, passengerInfo,otpPanel, finishRidePanel]);
+  }, [popUp, passengerInfo, otpPanel, finishRidePanel]);
 
   return (
     <div className="vw-100 vh-100 position-relative overflow-hidden">
@@ -128,7 +129,7 @@ function CaptainDashboard() {
         className="finish-ride position-absolute bottom-0 w-100"
         ref={finishRideRef}
       >
-        <FinsihRide closePanel={()=>setFinishRidePanel(false)}/>
+        <FinsihRide closePanel={() => setFinishRidePanel(false)} />
       </div>
     </div>
   );

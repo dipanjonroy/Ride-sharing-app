@@ -13,7 +13,7 @@ function CaptainProtect({ children }) {
 
   useEffect(() => {
     if (token) {
-      dispatch(captainProfile(token));
+      dispatch(captainProfile())
       navigate("/captain-dashboard");
     } else {
       navigate("/captain-login");

@@ -59,16 +59,21 @@ module.exports.checkCaptain = async (data) => {
     throw new ExpressError(400, "Invalid email or password.");
   }
 
-  return email;
+  const captainId = captain._id;
+  return captainId;
 };
 
 module.exports.blacklistCaptain = async (token) => {
   return await Token.create({ token });
 };
 
-module.exports.showProfile = async (email) => {
-  if (!email) {
+module.exports.showProfile = async (id) => {
+  
+  const captain = await Captain.findById(id);
+
+  if (!captain) {
     throw new ExpressError(401, "Profile does not exist.");
   }
-  return await Captain.findOne({ email });
+
+  return captain
 };

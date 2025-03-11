@@ -12,16 +12,21 @@ import Driverinfo from "../components/DriverInfo";
 import MakePayment from "./Riding";
 import { useDispatch, useSelector } from "react-redux";
 import { getFare, getSuggestions } from "../features/APICall/mapSlice";
+import {
+  setActiveField,
+  setDestination,
+  setPickUp,
+} from "../features/State management/stateSlice";
 
 const DashBoard = () => {
+  const { destination, pickup } = useSelector((store) => store.state);
+  const dispatch = useDispatch();
+
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
   const [showConfirmRidePanel, setShowConfirmRidePanel] = useState(false);
   const [showFindDriverPanel, setShowFindDriverPanel] = useState(false);
   const [driverInfoPanel, setDriverInfoPanel] = useState(false);
-  const [pickUp, setPickUp] = useState("");
-  const [destination, setDestination] = useState("");
-  const [activeField, setActiveField] = useState("");
 
   const vehiclePanelRef = useRef();
   const mapPanelRef = useRef();
@@ -31,15 +36,13 @@ const DashBoard = () => {
   const findDriverRef = useRef();
   const driverInfoRef = useRef();
 
-  const dispatch = useDispatch();
-
   const handlePickupSuggestion = (e) => {
-    setPickUp(e.target.value);
+    dispatch(setPickUp(e.target.value));
     dispatch(getSuggestions(e.target.value));
   };
 
   const handleDestinationSuggestion = (e) => {
-    setDestination(e.target.value);
+    dispatch(setDestination(e.target.value));
     dispatch(getSuggestions(e.target.value));
   };
 
@@ -50,8 +53,6 @@ const DashBoard = () => {
   const onClickShowVehiclePanel = () => {
     setShowVehiclePanel(true);
     setShowPanel(false);
-
-    dispatch(getFare({destination, pickUp}));
   };
 
   const handleConfirmRidePanel = () => {
@@ -161,11 +162,11 @@ const DashBoard = () => {
               type="text"
               placeholder="Add a pick-up location"
               className="mb-3"
-              value={pickUp}
+              value={pickup}
               onChange={handlePickupSuggestion}
               onClick={() => {
                 setShowPanel(true);
-                setActiveField("pickup");
+                dispatch(setActiveField("pickup"));
               }}
             />
 
@@ -176,19 +177,14 @@ const DashBoard = () => {
               value={destination}
               onClick={() => {
                 setShowPanel(true);
-                setActiveField("destination");
+                dispatch(setActiveField("destination"));
               }}
             />
           </form>
         </div>
 
         <div className="search-result-panel" ref={resultPanelRef}>
-          <SearchLocationPanel
-            vehiclePanel={onClickShowVehiclePanel}
-            setPickUp={setPickUp}
-            setDestination={setDestination}
-            activeField={activeField}
-          />
+          <SearchLocationPanel vehiclePanel={onClickShowVehiclePanel} />
         </div>
       </div>
 
