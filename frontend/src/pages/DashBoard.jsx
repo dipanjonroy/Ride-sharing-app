@@ -11,7 +11,7 @@ import FindDriver from "../components/FindDriver";
 import Driverinfo from "../components/DriverInfo";
 import MakePayment from "./Riding";
 import { useDispatch, useSelector } from "react-redux";
-import { getSuggestions } from "../features/APICall/mapSlice";
+import { getFare, getSuggestions } from "../features/APICall/mapSlice";
 
 const DashBoard = () => {
   const [showPanel, setShowPanel] = useState(false);
@@ -19,7 +19,6 @@ const DashBoard = () => {
   const [showConfirmRidePanel, setShowConfirmRidePanel] = useState(false);
   const [showFindDriverPanel, setShowFindDriverPanel] = useState(false);
   const [driverInfoPanel, setDriverInfoPanel] = useState(false);
-  const [pickUpSuggestions, setPickUpSuggestions] = useState([]);
   const [pickUp, setPickUp] = useState("");
   const [destination, setDestination] = useState("");
   const [activeField, setActiveField] = useState("");
@@ -35,12 +34,12 @@ const DashBoard = () => {
   const dispatch = useDispatch();
 
   const handlePickupSuggestion = (e) => {
-    setPickUp(e.target.value)
+    setPickUp(e.target.value);
     dispatch(getSuggestions(e.target.value));
   };
 
   const handleDestinationSuggestion = (e) => {
-    setDestination(e.target.value)
+    setDestination(e.target.value);
     dispatch(getSuggestions(e.target.value));
   };
 
@@ -51,6 +50,8 @@ const DashBoard = () => {
   const onClickShowVehiclePanel = () => {
     setShowVehiclePanel(true);
     setShowPanel(false);
+
+    dispatch(getFare({destination, pickUp}));
   };
 
   const handleConfirmRidePanel = () => {
@@ -150,7 +151,12 @@ const DashBoard = () => {
           ) : (
             <h4 className="text-dark">Find a trip</h4>
           )}
-          <form className="mt-2" onSubmit={(e)=>{e.preventDefault()}}>
+          <form
+            className="mt-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <input
               type="text"
               placeholder="Add a pick-up location"
@@ -174,16 +180,14 @@ const DashBoard = () => {
               }}
             />
           </form>
-
-          
         </div>
 
         <div className="search-result-panel" ref={resultPanelRef}>
           <SearchLocationPanel
             vehiclePanel={onClickShowVehiclePanel}
             setPickUp={setPickUp}
-            setDestination = {setDestination}
-            activeField = {activeField}
+            setDestination={setDestination}
+            activeField={activeField}
           />
         </div>
       </div>

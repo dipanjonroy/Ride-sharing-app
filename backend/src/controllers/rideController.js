@@ -1,4 +1,5 @@
-const { createRide } = require("../services/rideService");
+const { response } = require("express");
+const { createRide, getFare } = require("../services/rideService");
 
 module.exports.createRide = async (req, res) => {
   const { pickup, destination, vehicleType } = req.body;
@@ -10,5 +11,16 @@ module.exports.createRide = async (req, res) => {
   res.json({
     success: true,
     ride,
+  });
+};
+
+module.exports.getFare = async (req, res) => {
+  const { destination, pickup } = req.query;
+
+  const fare = await getFare(destination, pickup);
+
+  res.json({
+    success: true,
+    fare,
   });
 };

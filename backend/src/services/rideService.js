@@ -2,7 +2,7 @@ const Ride = require("../models/rideModel");
 const ExpressError = require("../utility/expresserror")
 const { getDistance } = require("./MapServices")
 
-const getFare = async(destination, pickup)=>{
+module.exports.getFare = async(destination, pickup)=>{
   if(!pickup || !destination){
     throw new ExpressError(401, "Pick and destination are required.")
   }
@@ -58,3 +58,4 @@ module.exports.createRide=async(user, pickup, destination,vehicleType)=>{
 
   return ride;
 }
+

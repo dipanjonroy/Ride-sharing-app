@@ -50,9 +50,10 @@ function SearchLocationPanel({
   //   },
   // ];
 
-  const { mapData } = useSelector((store) => store.map);
+  const { suggestion, fare } = useSelector((store) => store.map);
 
-  const { data } = mapData;
+  const data = suggestion.mapData.data;
+
 
   const handleFieldValue = (suggestion) => {
     if (activeField === "pickup") {
@@ -63,9 +64,11 @@ function SearchLocationPanel({
   };
 
   return (
-    <div className="px-4  location-area text-center">
-      <button className="btn btn-dark mb-4 w-50 rounded" onClick={vehiclePanel}>Find trip</button>
-      <div className="overflow-auto">
+    <div className="px-4 location-area text-center">
+      <button className="btn btn-dark mb-4 w-50 rounded" onClick={vehiclePanel}>
+        Find trip
+      </button>
+      <div className="overflow-auto h-100">
         {data.map((address, idx) => (
           <div
             key={idx}

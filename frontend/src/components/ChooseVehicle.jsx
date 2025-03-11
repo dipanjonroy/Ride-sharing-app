@@ -1,7 +1,11 @@
 import PersonIcon from "@mui/icons-material/Person";
 import "../CSS/ChooseVehicle.css";
+import { useSelector } from "react-redux";
 
 function ChooseVehicle({ showDesPanle }) {
+  const { fare } = useSelector((store) => store.map);
+  const fareData = fare.mapData.fare;
+
   return (
     <div className="overflow-auto">
       <div
@@ -28,7 +32,7 @@ function ChooseVehicle({ showDesPanle }) {
           <p className="vehicle-condition">Affordable, compact rides</p>
         </div>
 
-        <h3 className="align-self-start price">$10.24</h3>
+        <h3 className="align-self-start price">${Number(fareData.car).toFixed(2)}</h3>
       </div>
 
       <div
@@ -55,7 +59,7 @@ function ChooseVehicle({ showDesPanle }) {
           <p className="vehicle-condition">Affordable, compact rides</p>
         </div>
 
-        <h3 className="align-self-start price">$09.24</h3>
+        <h3 className="align-self-start price">${Number(fareData.bike).toFixed(2)}</h3>
       </div>
       <div
         className="vehicle d-flex align-items-center justify-content-between text-dark"
@@ -81,7 +85,7 @@ function ChooseVehicle({ showDesPanle }) {
           <p className="vehicle-condition">Affordable, compact rides</p>
         </div>
 
-        <h3 className="align-self-start price">$5.25</h3>
+        <h3 className="align-self-start price">${Number(fareData.auto).toFixed(2)}</h3>
       </div>
     </div>
   );
