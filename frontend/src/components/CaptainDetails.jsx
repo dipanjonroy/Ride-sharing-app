@@ -4,7 +4,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import { useSelector } from "react-redux";
 
 function CaptainDetails() {
-  const { profile } = useSelector((store) => store.captain);
+  const { profile, loading } = useSelector((store) => store.captain);
 
   const captainProfile = profile.response.profile;
 
@@ -23,9 +23,12 @@ function CaptainDetails() {
 
           <div className="captain-name">
             <h3>
-              {captainProfile.fullname.firstname +
-                " " +
-                captainProfile.fullname.lastname}
+              {loading
+                ? "Loading..."
+                : captainProfile?.fullname
+                ? captainProfile.fullname.firstname +
+                  captainProfile.fullname.lastname
+                : "No data found"}
             </h3>
             <p>Basic level</p>
           </div>

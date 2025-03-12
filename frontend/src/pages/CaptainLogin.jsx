@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { captainLogin } from "../features/APICall/captainSlice";
 
 export default function CaptainLogIn() {
-  const { response } = useSelector((store) => store.captain);
-  const { success } = response;
+  const { login } = useSelector((store) => store.captain);
+  const { success } = login.response;
 
   const disPatch = useDispatch();
 

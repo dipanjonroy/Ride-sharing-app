@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../features/APICall/userSlice";
 
 export default function UserLogIn() {
-  const { response } = useSelector((store) => store.user);
+  const { login } = useSelector((store) => store.user);
  
-  const { success } = response;
+  const { success } = login.response;
 
   const disPatch = useDispatch();
 

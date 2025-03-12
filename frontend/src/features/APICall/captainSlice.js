@@ -24,9 +24,9 @@ const initialState = {
   },
 
   profile: {
-    loading: null,
+    loading: true,
     response: {},
-    error: null,
+    error: false,
   },
 };
 

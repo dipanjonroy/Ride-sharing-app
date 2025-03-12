@@ -2,13 +2,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "../CSS/CaptainDashboard.css";
 import CaptainDetails from "../components/CaptainDetails";
 import CaptainPopUp from "../components/CaptainPopUp";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import PassengerDetails from "../components/PassengerDetails";
 import SubmitOtp from "../components/SubmitOtp";
 import FinsihRide from "../components/FinshRide";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { socketContext } from "../context/socketContext";
+import { captainProfile } from "../features/APICall/captainSlice";
 
 function CaptainDashboard() {
    const [popUp, setPopUp] = useState(false);
@@ -20,6 +22,18 @@ function CaptainDashboard() {
   const passengerInfoRef = useRef();
   const otpPageRef = useRef();
   const finishRideRef = useRef();
+
+  const dispatch = useDispatch()
+
+  const { profile } = useSelector((store) => store.captain);
+
+  const captain = profile.response.profile;
+
+  const {socket} = useContext(socketContext);
+
+  useEffect(()=>{
+    socket.emit("join", {userId: captain?._id, userType: "captain"})
+  },[captain])
 
   const handlePassengerPanel = () => {
     setPassengerInfo(true);

@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { userRegister } from "../features/APICall/userSlice";
 
 export default function UserSignUp() {
-  const { response, error} = useSelector((store) => store.user);
-  const { success } = response;
+  const { register} = useSelector((store) => store.user);
+  const { success } = register.response;
 
   const disPatch = useDispatch();
 

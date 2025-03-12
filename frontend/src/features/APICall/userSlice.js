@@ -1,15 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 const initialState = {
-  loading: null,
-  response: {
-    success: null,
-    message: null,
-    data: null,
+  register: {
+    loading: null,
+    response: {
+      success: null,
+      message: null,
+      data: null,
+    },
+    error: null,
   },
-  error: null,
+
+  login: {
+    loading: null,
+    response: {
+      success: null,
+      message: null,
+      data: null,
+    },
+    error: null,
+  },
+
+  profile: {
+    loading: null,
+    response: {
+      success: null,
+      user: null,
+    },
+    error: null,
+  },
 };
 
 export const userRegister = createAsyncThunk(
@@ -53,9 +73,6 @@ export const userProfile = createAsyncThunk(
         `${import.meta.env.VITE_SERVER_URL_USER}/profile`,
         {
           withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 
@@ -75,47 +92,47 @@ export const userSlice = createSlice({
 
       //Register user
       .addCase(userRegister.pending, (state) => {
-        state.loading = true;
+        state.register.loading = true;
       })
 
       .addCase(userRegister.fulfilled, (state, action) => {
-        state.loading = false;
-        state.response = action.payload;
+        state.register.loading = false;
+        state.register.response = action.payload;
       })
 
       .addCase(userRegister.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.register.loading = false;
+        state.register.error = action.payload;
       })
 
       //Login user
       .addCase(userLogin.pending, (state) => {
-        state.loading = true;
+        state.login.loading = true;
       })
 
       .addCase(userLogin.fulfilled, (state, action) => {
-        state.loading = false;
-        state.response = action.payload;
+        state.login.loading = false;
+        state.login.response = action.payload;
       })
 
       .addCase(userLogin.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.login.loading = false;
+        state.login.error = action.payload;
       })
 
       //user profile
       .addCase(userProfile.pending, (state) => {
-        state.loading = true;
+        state.profile.loading = true;
       })
 
       .addCase(userProfile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.response = action.payload;
+        state.profile.loading = false;
+        state.profile.response = action.payload;
       })
 
       .addCase(userProfile.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.profile.loading = false;
+        state.profile.error = action.payload;
       });
   },
 });

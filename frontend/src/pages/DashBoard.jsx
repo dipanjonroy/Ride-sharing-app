@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "../CSS/UserDashboard.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import gsap from "gsap";
@@ -17,10 +17,16 @@ import {
   setDestination,
   setPickUp,
 } from "../features/State management/stateSlice";
+import { socketContext } from "../context/socketContext";
 
 const DashBoard = () => {
   const { destination, pickup } = useSelector((store) => store.state);
+  const { profile } = useSelector((store) => store.user);
+  const { user } = profile.response;
+
   const dispatch = useDispatch();
+
+  const {socket} = useContext(socketContext)
 
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
@@ -36,6 +42,10 @@ const DashBoard = () => {
   const findDriverRef = useRef();
   const driverInfoRef = useRef();
 
+  useEffect(()=>{
+    socket.emit("join", {userId: user?._id, userType: "user"})
+  },[user])
+
   const handlePickupSuggestion = (e) => {
     dispatch(setPickUp(e.target.value));
     dispatch(getSuggestions(e.target.value));
@@ -45,10 +55,6 @@ const DashBoard = () => {
     dispatch(setDestination(e.target.value));
     dispatch(getSuggestions(e.target.value));
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
 
   const onClickShowVehiclePanel = () => {
     setShowVehiclePanel(true);
