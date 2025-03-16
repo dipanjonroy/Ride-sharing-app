@@ -1,27 +1,13 @@
-const { getDistance } = require("../services/MapServices");
+const { getDistance, getAddressCoordinate } = require("../services/MapServices");
 const ExpressError = require("../utility/expresserror");
 const axios = require("axios");
 
 module.exports.getCoordinate = async (req, res) => {
   const { address } = req.query;
 
-  const api = process.env.GOPROMAP_API;
-  const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(
-    address
-  )}&key=${api}`;
+  const coordinates = await getAddressCoordinate(address);
 
-  const data = await axios.get(url);
-
-  if (!data) {
-    throw new ExpressError(401, "Location not found");
-  }
-
-  const location = data.results[0].geometry.location;
-
-  res.json({
-    success: true,
-    location,
-  });
+  res.json({coordinates})
 };
 
 module.exports.getDistance = async (req, res) => {

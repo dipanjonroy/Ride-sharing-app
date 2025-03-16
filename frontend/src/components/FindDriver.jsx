@@ -2,8 +2,11 @@ import PinDropIcon from "@mui/icons-material/PinDrop";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import PaymentIcon from "@mui/icons-material/Payment";
 import "../CSS/ConfirmRide.css";
+import { useSelector } from "react-redux";
 
 function FindDriver({ closePanel }) {
+  const {createRide} = useSelector((store)=>store.ride);
+  const {ride} = createRide.data;
   return (
     <div className="v-description-panel bg-light p-4 text-dark d-flex flex-column justify-content-center align-items-center">
       <div className="panel-close" onClick={closePanel}></div>
@@ -18,22 +21,22 @@ function FindDriver({ closePanel }) {
           <PinDropIcon />
           <div className="d-location-text">
             <h4>562/11-A</h4>
-            <p>modern furniture more, khulna</p>
+            <p>{ride?.pickup}</p>
           </div>
         </div>
 
         <div className="d-flex align-items-center gap-4">
           <MyLocationIcon />
           <div className="d-location-text">
-            <h4>Bhangonpar bazar</h4>
-            <p>Gouramva Road, Shuvadia, Fakirhat, Bagerhat</p>
+            <h4>562/11-A</h4>
+            <p>{ride?.destination}</p>
           </div>
         </div>
 
         <div className="d-flex align-items-center gap-4">
           <PaymentIcon />
           <div className="d-location-text border-bottom-0 pb-0">
-            <h4>$55.35</h4>
+            <h4>${ride?.fare}</h4>
             <p>cash cash</p>
           </div>
         </div>

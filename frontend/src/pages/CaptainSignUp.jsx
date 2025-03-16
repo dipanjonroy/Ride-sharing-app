@@ -121,9 +121,9 @@ export default function CaptainSignUp() {
                     <option value="" disabled>
                       Select
                     </option>
-                    <option value="Car">Car</option>
-                    <option value="Bike">Bike</option>
-                    <option value="Auto">Auto</option>
+                    <option value="car">Car</option>
+                    <option value="bike">Bike</option>
+                    <option value="auto">Auto</option>
                   </select>
                 </div>
 

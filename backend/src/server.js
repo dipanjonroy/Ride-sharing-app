@@ -1,6 +1,6 @@
 const { createServer } = require("node:http");
 const app = require("./app");
-const connectToSocket = require("./controllers/socketController");
+const {connectToSocket} = require("./controllers/socketController");
 const port = process.env.PORT || 5000;
 
 const server = createServer(app);

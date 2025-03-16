@@ -27,7 +27,7 @@ function SearchLocationPanel({ vehiclePanel }) {
   return (
     <div className="px-4 location-area text-center">
       <button
-        className="btn btn-dark mb-4 w-50 rounded"
+        className="btn btn-dark w-50 rounded"
         onClick={() => {
           vehiclePanel();
           dispatch(getFare({ destination, pickup }));

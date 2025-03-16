@@ -1,8 +1,9 @@
+const Captain = require("../models/captainModel");
 const Ride = require("../models/rideModel");
 const ExpressError = require("../utility/expresserror");
 const { getDistance } = require("./MapServices");
 
-module.exports.getFare = async (destination, pickup) => {
+const getFare = async (destination, pickup) => {
   if (!pickup || !destination) {
     throw new ExpressError(401, "Pick and destination are required.");
   }
@@ -48,6 +49,8 @@ module.exports.getFare = async (destination, pickup) => {
   return fare;
 };
 
+module.exports = getFare;
+
 const getOtp = (num) => {
   return Math.floor(Math.random() * Math.pow(10, num));
 };
@@ -59,13 +62,54 @@ module.exports.createRide = async (user, pickup, destination, vehicleType) => {
 
   const fare = await getFare(destination, pickup);
 
-  const ride = Ride.create({
+  const ride = await Ride.create({
     user,
     pickup,
+    vehicleType,
     destination,
     fare: fare[vehicleType],
-    otp: getOtp(6),
+    
   });
 
   return ride;
 };
+
+module.exports.acceptRideService = async(data)=>{
+
+  const {rideId, captain} = data;
+
+ await Ride.findByIdAndUpdate(rideId, {
+    status: "accepted",
+    captain: captain._id,
+    otp: getOtp(6),
+  })
+
+  const ride = await Ride.findById(rideId).populate("user").populate("captain").select("+otp");
+
+  return ride;
+}
+
+module.exports.confirmRideService = async(data)=>{
+  const {rideId, otp, captainId} = data;
+
+  const ride = await Ride.findById(rideId).select("+otp");
+
+  if(!ride){
+    throw new ExpressError(401, "Ride is not find.")
+  }
+
+  if(!otp){
+    throw new ExpressError(401, "OTP is required.")
+  }
+
+  if(otp !== ride.otp){
+    throw new ExpressError(401, "OTP is not matched.")
+  }
+
+  const confirmRide = await Ride.findByIdAndUpdate(rideId, {
+    status: "ongoing"
+  }).populate("user").populate("captain");
+
+  return confirmRide
+
+}

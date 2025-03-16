@@ -9,13 +9,11 @@ import store from "./app/store.js";
 import SocketProvider from "./context/socketContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <SocketProvider>
-          <App />
-        </SocketProvider>
-      </Provider>
-    </BrowserRouter>
-  </StrictMode>
+  <BrowserRouter>
+    <Provider store={store}>
+      <SocketProvider>
+        <App />
+      </SocketProvider>
+    </Provider>
+  </BrowserRouter>
 );

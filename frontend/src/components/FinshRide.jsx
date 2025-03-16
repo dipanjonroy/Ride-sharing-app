@@ -1,4 +1,5 @@
 import LogoutIcon from "@mui/icons-material/Logout";
+import LiveTracking from "./LiveTracking";
 function FinsihRide({closePanel}) {
   return (
     <div className="vh-100 bg-body position-relative">
@@ -14,11 +15,7 @@ function FinsihRide({closePanel}) {
       </div>
 
       <div className="cap-map w-100 h-100">
-        <img
-          src="https://simonpan.com/wp-content/themes/sp_portfolio/assets/uber-challenge.jpg"
-          alt=""
-          className="w-100 h-100 object-fit-cover"
-        />
+        <LiveTracking/>
       </div>
 
       <div className="complete-ride position-fixed bottom-0 w-100 px-4 py-5 d-flex justify-content-between align-items-center">

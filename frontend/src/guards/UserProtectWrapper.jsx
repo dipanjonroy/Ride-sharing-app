@@ -14,7 +14,6 @@ function UserProtecttor({ children }) {
   useEffect(() => {
     if (token) {
       dispatch(userProfile(token));
-      navigate("/dashboard");
     } else {
       navigate("/login");
     }

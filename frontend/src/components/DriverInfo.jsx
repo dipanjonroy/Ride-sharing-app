@@ -7,7 +7,7 @@ import EmergencyShareIcon from "@mui/icons-material/EmergencyShare";
 import CallIcon from "@mui/icons-material/Call";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 
-function Driverinfo({ closePanel }) {
+function Driverinfo({ closePanel, ride }) {
   return (
     <div className="py-3 w-100 bg-body driver-info-panel">
       <center>
@@ -39,11 +39,10 @@ function Driverinfo({ closePanel }) {
         </div>
 
         <div className="drive-details text-dark">
-          <h4>santh</h4>
-          <h3>ka15ak00-0</h3>
-          <p>white suzuki s_presso LXI</p>
+          <h4>{ride?.captain.fullname.firstname}</h4>
+          <h3>{ride?.captain.vehicle.numberplate}</h3>
           <span>
-            <GradeIcon /> 4.9
+           OTP: {ride?.otp}
           </span>
         </div>
       </div>
@@ -84,7 +83,7 @@ function Driverinfo({ closePanel }) {
         <PinDropIcon />
         <div className="driver-location-text">
           <h4>562/11-A</h4>
-          <p>modern furniture more, khulna</p>
+          <p>{ride?.pickup}</p>
         </div>
       </div>
       

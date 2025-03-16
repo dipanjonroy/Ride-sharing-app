@@ -8,12 +8,13 @@ import gsap from "gsap";
 import PassengerDetails from "../components/PassengerDetails";
 import SubmitOtp from "../components/SubmitOtp";
 import FinsihRide from "../components/FinshRide";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { socketContext } from "../context/socketContext";
-import { captainProfile } from "../features/APICall/captainSlice";
+import { shallowEqual } from "react-redux";
+import LiveTracking from "../components/LiveTracking"
 
 function CaptainDashboard() {
-   const [popUp, setPopUp] = useState(false);
+  const [popUp, setPopUp] = useState(false);
   const [passengerInfo, setPassengerInfo] = useState(false);
   const [otpPanel, setOtpPanel] = useState(false);
   const [finishRidePanel, setFinishRidePanel] = useState(false);
@@ -23,17 +24,49 @@ function CaptainDashboard() {
   const otpPageRef = useRef();
   const finishRideRef = useRef();
 
-  const dispatch = useDispatch()
+  const [ride, setRide] = useState(null);
 
-  const { profile } = useSelector((store) => store.captain);
+  const { profile } = useSelector((store) => store.captain, shallowEqual);
 
   const captain = profile.response.profile;
 
-  const {socket} = useContext(socketContext);
+  const { socket } = useContext(socketContext);
 
-  useEffect(()=>{
-    socket.emit("join", {userId: captain?._id, userType: "captain"})
-  },[captain])
+  const updateLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        socket.emit("update-captain-location", {
+          captainId: captain?._id,
+          location: {
+            ltd: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+        });
+      });
+    }
+  };
+
+  const handleNewRide = (data) => {
+    console.log(data);
+    setRide(data);
+    setPopUp(true);
+  };
+
+  useEffect(() => {
+    if (!captain?._id) return;
+    socket.emit("join", { userId: captain?._id, userType: "captain" });
+
+    updateLocation();
+
+    const locationInterval = setInterval(updateLocation, 10000);
+
+    socket.on("new-ride", handleNewRide);
+
+    return () => {
+      clearInterval(locationInterval);
+      socket.off("new-ride", handleNewRide);
+    };
+  }, [captain?._id]);
 
   const handlePassengerPanel = () => {
     setPassengerInfo(true);
@@ -55,7 +88,9 @@ function CaptainDashboard() {
         transform: "translateY(100%)",
       });
     }
+  }, [popUp]);
 
+  useGSAP(() => {
     if (passengerInfo) {
       gsap.to(passengerInfoRef.current, {
         transform: "translateY(0%)",
@@ -65,7 +100,9 @@ function CaptainDashboard() {
         transform: "translateY(100%)",
       });
     }
+  }, [passengerInfo]);
 
+  useGSAP(() => {
     if (otpPanel) {
       gsap.to(otpPageRef.current, {
         transform: "translateY(0%)",
@@ -75,7 +112,9 @@ function CaptainDashboard() {
         transform: "translateY(100%)",
       });
     }
+  }, [otpPanel]);
 
+  useGSAP(() => {
     if (finishRidePanel) {
       gsap.to(finishRideRef.current, {
         transform: "translateY(0%)",
@@ -85,7 +124,7 @@ function CaptainDashboard() {
         transform: "translateY(100%)",
       });
     }
-  }, [popUp, passengerInfo, otpPanel, finishRidePanel]);
+  }, [finishRidePanel]);
 
   return (
     <div className="vw-100 vh-100 position-relative overflow-hidden">
@@ -101,11 +140,7 @@ function CaptainDashboard() {
       </div>
 
       <div className="cap-map w-100 h-100">
-        <img
-          src="https://simonpan.com/wp-content/themes/sp_portfolio/assets/uber-challenge.jpg"
-          alt=""
-          className="w-100 h-100 object-fit-cover"
-        />
+        <LiveTracking/>
       </div>
 
       <div className="captain-details position-absolute bottom-0 w-100">
@@ -119,6 +154,7 @@ function CaptainDashboard() {
         <CaptainPopUp
           closePanel={() => setPopUp(false)}
           handlePanel={handlePassengerPanel}
+          ride={ride}
         />
       </div>
 
@@ -129,6 +165,7 @@ function CaptainDashboard() {
         <PassengerDetails
           closePanel={() => setPassengerInfo(false)}
           handlePanel={handleOtpPanel}
+          ride={ride}
         />
       </div>
 
@@ -136,7 +173,14 @@ function CaptainDashboard() {
         className="otp-panel position-absolute bottom-0 w-100"
         ref={otpPageRef}
       >
-        <SubmitOtp closePanel={() => setOtpPanel(false)} />
+        <SubmitOtp
+          closePanel={() => setOtpPanel(false)}
+          ride={ride}
+          handlePanel={() => {
+            setFinishRidePanel(true);
+            setOtpPanel(false);
+          }}
+        />
       </div>
 
       <div

@@ -1,14 +1,14 @@
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getAcceptedRide } from "../features/APICall/rideSlice";
 
-function PassengerDetails({ closePanel, handlePanel }) {
-  const [otp, setOtp] = useState(false);
+function PassengerDetails({ closePanel, handlePanel, ride }) {
+  const dispatch = useDispatch();
 
-  const otpRef = useRef();
-
-  const handleOtpSubmit = (e) => {
-    e.preventDefault();
+  const acceptRide = () => {
+    dispatch(getAcceptedRide({rideId: ride?._id}));
   };
 
   return (
@@ -22,13 +22,13 @@ function PassengerDetails({ closePanel, handlePanel }) {
             />
 
             <div className="captain-name">
-              <h3>Milon roy</h3>
+              <h3>{ride?.user.firstname + " " + ride?.user.lastname}</h3>
               <p>ApplePay</p>
             </div>
           </div>
 
           <div className="captain-earning text-end">
-            <h3>$325.00</h3>
+            <h3>${ride?.fare}</h3>
             <p>2.2 km</p>
           </div>
         </div>
@@ -39,15 +39,15 @@ function PassengerDetails({ closePanel, handlePanel }) {
           <PinDropIcon />
           <div className="passenger-location">
             <h4>562/11-A</h4>
-            <p>modern furniture more, khulna</p>
+            <p>{ride?.pickup}</p>
           </div>
         </div>
 
         <div className="d-flex align-items-center gap-3 py-3 border-top">
           <MyLocationIcon />
           <div className="passenger-location">
-            <h4>Bhangonpar bazar</h4>
-            <p>Gouramva Road, Shuvadia, Fakirhat, Bagerhat</p>
+            <h4>562/11-A</h4>
+            <p>{ride?.destination}</p>
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@ function PassengerDetails({ closePanel, handlePanel }) {
             </div>
 
             <div className="payment-info text-end">
-              <h4>$15.00</h4>
+              <h4>${ride?.fare}</h4>
               <h4>$10.00</h4>
-              <h4>$25.00</h4>
+              <h4>${ride?.fare - 10}</h4>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@ function PassengerDetails({ closePanel, handlePanel }) {
         </button>
         <button
           className="accept-btn pop-up-button rounded ms-3"
-          onClick={handlePanel}
+          onClick={()=>{handlePanel();acceptRide()}}
         >
           Confirm
         </button>

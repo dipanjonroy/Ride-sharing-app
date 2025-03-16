@@ -66,11 +66,11 @@ const captainSchema = new Schema({
   },
 
   location: {
-    lat: {
+    ltd: {
       type: Number,
     },
 
-    long: {
+    lng: {
       type: Number,
     },
   },

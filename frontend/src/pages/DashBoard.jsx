@@ -9,7 +9,7 @@ import ChooseVehicle from "../components/ChooseVehicle";
 import ConfirmRide from "../components/ConfirmRide";
 import FindDriver from "../components/FindDriver";
 import Driverinfo from "../components/DriverInfo";
-import MakePayment from "./Riding";
+import MakePayment from "../components/MakePayment";
 import { useDispatch, useSelector } from "react-redux";
 import { getFare, getSuggestions } from "../features/APICall/mapSlice";
 import {
@@ -18,6 +18,8 @@ import {
   setPickUp,
 } from "../features/State management/stateSlice";
 import { socketContext } from "../context/socketContext";
+import { useNavigate } from "react-router-dom";
+import LiveTracking from "../components/LiveTracking";
 
 const DashBoard = () => {
   const { destination, pickup } = useSelector((store) => store.state);
@@ -25,8 +27,9 @@ const DashBoard = () => {
   const { user } = profile.response;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const {socket} = useContext(socketContext)
+  const { socket } = useContext(socketContext);
 
   const [showPanel, setShowPanel] = useState(false);
   const [showVehiclePanel, setShowVehiclePanel] = useState(false);
@@ -34,17 +37,39 @@ const DashBoard = () => {
   const [showFindDriverPanel, setShowFindDriverPanel] = useState(false);
   const [driverInfoPanel, setDriverInfoPanel] = useState(false);
 
+  const [acceptedRide, setAcceptedRide] = useState(null);
+
   const vehiclePanelRef = useRef();
   const mapPanelRef = useRef();
+  const searchPanelRef = useRef();
   const locationSearchBodyRef = useRef();
   const resultPanelRef = useRef();
   const confirmRideRef = useRef();
   const findDriverRef = useRef();
   const driverInfoRef = useRef();
 
-  useEffect(()=>{
-    socket.emit("join", {userId: user?._id, userType: "user"})
-  },[user])
+  const handleAcceptRide = (data) => {
+    setDriverInfoPanel(true);
+    setAcceptedRide(data);
+  };
+
+  const handleConfirmRide = (data) => {
+    navigate("/riding", { state: { ride: data } });
+  };
+
+  useEffect(() => {
+    socket.emit("join", { userId: user?._id, userType: "user" });
+  }, [user]);
+
+  useEffect(() => {
+    socket.on("accept-ride", handleAcceptRide);
+    socket.on("confirm-ride", handleConfirmRide);
+
+    return () => {
+      socket.off("accept-ride", handleAcceptRide);
+      socket.off("confirm-ride", handleConfirmRide);
+    };
+  }, []);
 
   const handlePickupSuggestion = (e) => {
     dispatch(setPickUp(e.target.value));
@@ -71,7 +96,7 @@ const DashBoard = () => {
     setShowConfirmRidePanel(false);
   };
 
-  useGSAP(() => {
+  useGSAP(()=>{
     if (showPanel) {
       gsap.to(resultPanelRef.current, {
         height: "70%",
@@ -79,6 +104,15 @@ const DashBoard = () => {
 
       gsap.to(locationSearchBodyRef.current, {
         borderRadius: 0,
+        height: "30%"
+      });
+
+      gsap.to(mapPanelRef.current, {
+        height: "100%",
+      });
+
+      gsap.to(searchPanelRef.current, {
+        height: "100%",
       });
     } else {
       gsap.to(resultPanelRef.current, {
@@ -86,8 +120,19 @@ const DashBoard = () => {
       });
       gsap.to(locationSearchBodyRef.current, {
         borderRadius: "20px 20px 0 0",
+        height: "100%",
+      });
+      gsap.to(mapPanelRef.current, {
+        height: "70%",
+      });
+      gsap.to(searchPanelRef.current, {
+        height: "30%",
       });
     }
+  },[showPanel])
+
+  useGSAP(() => {
+    
 
     if (showVehiclePanel) {
       gsap.to(vehiclePanelRef.current, {
@@ -129,7 +174,7 @@ const DashBoard = () => {
       });
     }
   }, [
-    showPanel,
+    ,
     showVehiclePanel,
     showConfirmRidePanel,
     showFindDriverPanel,
@@ -143,15 +188,16 @@ const DashBoard = () => {
         alt="uber logo"
         className="logo user-dashboard-logo"
       />
-      <div className="user-map w-100 h-100" ref={mapPanelRef}>
-        <img
+      <div className="user-map w-100" ref={mapPanelRef}>
+        {/* <img
           src="https://simonpan.com/wp-content/themes/sp_portfolio/assets/uber-challenge.jpg"
           alt=""
           className="w-100 h-100 object-fit-cover"
-        />
+        /> */}
+        <LiveTracking />
       </div>
 
-      <div className="find-trip w-100 h-100">
+      <div ref={searchPanelRef} className="find-trip w-100">
         <div ref={locationSearchBodyRef} className="location-search bg-body">
           {showPanel ? (
             <KeyboardArrowDownIcon onClick={() => setShowPanel(false)} />
@@ -229,7 +275,10 @@ const DashBoard = () => {
         className="driver-info position-absolute bottom-0 w-100"
         ref={driverInfoRef}
       >
-        <Driverinfo closePanel={() => setDriverInfoPanel(false)} />
+        <Driverinfo
+          closePanel={() => setDriverInfoPanel(false)}
+          ride={acceptedRide}
+        />
       </div>
     </div>
   );

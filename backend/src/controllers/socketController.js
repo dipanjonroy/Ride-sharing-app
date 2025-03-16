@@ -4,7 +4,7 @@ const Captain = require("../models/captainModel");
 
 let io;
 
-const connectToSocket = (server) => {
+module.exports.connectToSocket = (server) => {
   io = new Server(server, {
     cors: {
       origin: "*",
@@ -29,10 +29,31 @@ const connectToSocket = (server) => {
       }
     });
 
+    socket.on("update-captain-location", async(data)=>{
+      const {captainId, location} = data;
+
+      if(!location || !location.ltd || !location.lng){
+        return socket.emit("error", {message: "Invalid location data."})
+      }
+
+      await Captain.findByIdAndUpdate(captainId, {location:{
+        ltd: location.ltd,
+        lng: location.lng
+      }})
+    })
+
     socket.on("disconnect", () => {
       console.log("Client disconnected: " + socket.id);
     });
   });
 };
 
-module.exports = connectToSocket;
+module.exports.sendMessageToSocketId = (socketId, message)=>{
+  if(io){
+    io.to(socketId).emit(message.event, message.data)
+  } else {
+    console.log("Socket is not initialized.")
+  }
+}
+
+

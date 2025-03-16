@@ -22,6 +22,9 @@ const rideSchema = new Schema({
     type: String,
     required: true,
   },
+  vehicleType: {
+    type: String,
+  },
   fare: {
     type: Number,
     required: true,

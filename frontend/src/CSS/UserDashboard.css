@@ -10,16 +10,19 @@
   left: 1.5rem;
 }
 
+.user-map {
+  height: 70%;
+}
+
+
 .find-trip {
   position: absolute;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  
 }
 
 .location-search {
-  height: 30%;
+  height: 100%;
   padding: 1.5rem 2rem;
 }
 
@@ -72,6 +75,11 @@
 
 .confirm-ride,
 .find-driver,
-.driver-info {
+.driver-info,
+.make-payment {
   transform: translateY(100%);
+}
+
+.make-payment {
+  background-color: #fff;
 }

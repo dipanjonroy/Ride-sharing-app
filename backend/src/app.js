@@ -21,6 +21,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -40,6 +41,5 @@ app.use((err, req, res, next) => {
   let { status = 500, message = "Server side issues" } = err;
   res.status(status).json({ success: false, message: message });
 });
-
 
 module.exports = app;

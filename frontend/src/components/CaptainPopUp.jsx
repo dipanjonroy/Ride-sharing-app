@@ -1,7 +1,11 @@
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+import { useDispatch, useSelector } from "react-redux";
+import { getAcceptedRide } from "../features/APICall/rideSlice";
 
-function CaptainPopUp({closePanel, handlePanel}) {
+function CaptainPopUp({ closePanel, handlePanel, ride }) {
+ 
+
   return (
     <div className="pop-up-container bg-body w-100 py-3 text-dark">
       <center>
@@ -19,13 +23,13 @@ function CaptainPopUp({closePanel, handlePanel}) {
             />
 
             <div className="captain-name">
-              <h3>Milon roy</h3>
+              <h3>{ride?.user.firstname + " " + ride?.user.lastname}</h3>
               <p>ApplePay</p>
             </div>
           </div>
 
           <div className="captain-earning text-end">
-            <h3>$325.00</h3>
+            <h3>${ride?.fare}</h3>
             <p>2.2 km</p>
           </div>
         </div>
@@ -36,22 +40,31 @@ function CaptainPopUp({closePanel, handlePanel}) {
           <PinDropIcon />
           <div className="passenger-location">
             <h4>562/11-A</h4>
-            <p>modern furniture more, khulna</p>
+            <p>{ride?.pickup}</p>
           </div>
         </div>
 
         <div className="d-flex align-items-center gap-4 py-3 border-top">
           <MyLocationIcon />
           <div className="passenger-location">
-            <h4>Bhangonpar bazar</h4>
-            <p>Gouramva Road, Shuvadia, Fakirhat, Bagerhat</p>
+            <h4>562/11-A</h4>
+            <p>{ride?.destination}</p>
           </div>
         </div>
       </div>
 
       <div className="text-end px-3 mb-5 mt-4">
-        <button className="pop-up-button rounded" onClick={closePanel}>Ignore</button>
-        <button className="accept-btn pop-up-button rounded ms-3" onClick={handlePanel}>Accept</button>
+        <button className="pop-up-button rounded" onClick={closePanel}>
+          Ignore
+        </button>
+        <button
+          className="accept-btn pop-up-button rounded ms-3"
+          onClick={() => {
+            handlePanel();
+          }}
+        >
+          Accept
+        </button>
       </div>
     </div>
   );

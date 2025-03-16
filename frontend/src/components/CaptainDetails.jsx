@@ -26,7 +26,7 @@ function CaptainDetails() {
               {loading
                 ? "Loading..."
                 : captainProfile?.fullname
-                ? captainProfile.fullname.firstname +
+                ? captainProfile.fullname.firstname + " " +
                   captainProfile.fullname.lastname
                 : "No data found"}
             </h3>
